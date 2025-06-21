@@ -2,10 +2,6 @@ return {
   'neoclide/coc.nvim',
   branch = "master",
   config = function()
-    --local vimrc = vim.fn.stdpath("config") .. '/vim/coc.vim'
-
-    --vim.cmd.source(vimrc)
-    
     -- https://raw.githubusercontent.com/neoclide/coc.nvim/master/doc/coc-example-config.lua
 
     -- Some servers have issues with backup files, see #649
@@ -184,5 +180,10 @@ return {
     keyset("n", "<space>k", ":<C-u>CocPrev<cr>", opts)
     -- Resume latest coc list
     keyset("n", "<space>p", ":<C-u>CocListResume<cr>", opts)
+
+
+    local vimrc = vim.fn.stdpath("config") .. '/vim/coc.vim'
+
+    vim.cmd.source(vimrc)
   end
 }
