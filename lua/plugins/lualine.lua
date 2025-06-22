@@ -13,10 +13,10 @@ return {
             path = 1
           }
         },
-        lualine_x = {'diff', 'diagnostics'},
+        lualine_x = {'diagnostics'},
         lualine_y = {},
         lualine_z = {}
       }
     }
-  end,
+  end
 }
