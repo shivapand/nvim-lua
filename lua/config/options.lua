@@ -14,4 +14,4 @@ vim.g.loaded_matchparen = true
 
 vim.opt.swapfile = false
 
-
+vim.opt.showmode = false
