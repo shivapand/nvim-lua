@@ -182,6 +182,16 @@ return {
     keyset("n", "<space>p", ":<C-u>CocListResume<cr>", opts)
 
 
+    keyset('n', '<C-a>', ':CocCommand prettier.formatFile<CR>', { desc = 'Format file' })
+
+    keyset('n', '[h', '<Plug>(coc-git-prevchunk)', {desc = 'Git prevchunk'})
+    keyset('n', ']h', '<Plug>(coc-git-nextchunk)', {desc = 'Git nextchunk'})
+
+    keyset('n', '<Esc>', ':call coc#float#close_all() <CR>', {desc = 'CoC float close all'})
+
+    keyset({'v', 'n'}, '<Leader>a', '<Plug>(coc-format-selected)', {desc = 'Format sel'})
+
+
     local vimrc = vim.fn.stdpath("config") .. '/vim/coc.vim'
 
     vim.cmd.source(vimrc)
