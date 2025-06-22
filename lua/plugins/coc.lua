@@ -181,6 +181,7 @@ return {
     -- Resume latest coc list
     keyset("n", "<space>p", ":<C-u>CocListResume<cr>", opts)
 
+
     vim.cmd("let g:coc_global_extensions = ['coc-tsserver', 'coc-emmet', 'coc-eslint', 'coc-prettier', 'coc-stylelintplus', 'coc-css', 'coc-styled-components', 'coc-lua']")
 
     keyset('n', '<Esc>', ':call coc#float#close_all() <CR>', {desc = 'CoC float close all'})
