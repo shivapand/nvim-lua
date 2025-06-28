@@ -10,6 +10,9 @@ return {
   lazy = false,
   config = function()
     require("oil").setup({
+      view_options = {
+        show_hidden = true,
+      },
       keymaps = {
         ["<S-t>"] = { "actions.select", opts = { tab = true } }
       },
