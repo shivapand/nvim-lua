@@ -2,7 +2,7 @@ return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'echasnovski/mini.icons' },
   config = function(_)
-    require('lualine').setup {
+    require('lualine').setup({
       sections = {
         lualine_a = {},
         lualine_b = {
@@ -13,10 +13,10 @@ return {
             path = 1
           }
         },
-        lualine_x = {'diagnostics'},
+        lualine_x = { 'diagnostics' },
         lualine_y = {},
         lualine_z = {}
       }
-    }
+    })
   end
 }

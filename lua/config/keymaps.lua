@@ -7,3 +7,5 @@ vim.keymap.set('n', '<Leader>/', ':noh<CR>', { desc = 'Clear search highlight' }
 
 vim.keymap.set('n', '<Leader>g', ':call system("xclip -i -selection clipboard", expand("%:~:."))<CR>',
   { desc = 'Copy file path' })
+
+vim.keymap.set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
