@@ -4,6 +4,9 @@ vim.opt.clipboard='unnamedplus'
 
 vim.opt.swapfile = false
 
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.stdpath('data') .. '/undo'
+
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.softtabstop = 2
@@ -13,9 +16,6 @@ vim.o.showtabline = 2
 vim.opt.number = true
 vim.opt.signcolumn = "yes"
 vim.opt.showmode = false
-
-vim.opt.undofile = true
-vim.opt.undodir = vim.fn.stdpath('data') .. '/undo'
 
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
