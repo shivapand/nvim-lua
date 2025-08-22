@@ -10,15 +10,15 @@ return {
       nerd_font_variant = 'mono'
     },
     completion = {
-      documentation = { auto_show = true },
-      trigger = {
-        show_on_insert_on_trigger_character = false
-      },
+      documentation = { auto_show = true }
     },
     sources = {
-      default = { 'lsp', 'path', 'buffer' }
+      default = { 'lsp', 'path', 'snippets', 'buffer' }
     },
-    fuzzy = { implementation = "prefer_rust_with_warning" }
+    fuzzy = {
+      implementation = "prefer_rust_with_warning",
+    }
+
   },
   opts_extend = { "sources.default" }
 }
