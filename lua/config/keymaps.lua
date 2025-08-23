@@ -8,11 +8,26 @@ vim.keymap.set('n', '<Leader>/', ':noh<CR>', { desc = 'Clear search highlight' }
 vim.keymap.set('n', '<Leader>g', ':call system("xclip -i -selection clipboard", expand("%:~:."))<CR>',
   { desc = 'Copy file path' })
 
+
 vim.keymap.set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
 
-vim.keymap.set("n", "[g", vim.diagnostic.goto_prev, { desc = "Next Diagnostic" })
 
-vim.keymap.set("n", "]g", vim.diagnostic.goto_next, { desc = "Previous Diagnostic" })
+vim.keymap.set("n", "[g",
+  function()
+    vim.diagnostic.goto_prev({ float = false })
+  end,
+  { desc = "Next Diagnostic" }
+)
+
+vim.keymap.set("n", "]g",
+  function()
+    vim.diagnostic.goto_next({ float = false })
+  end,
+  { desc = "Previous Diagnostic" }
+)
+
+vim.keymap.set('n', '<S-k>', '<Cmd>Lspsaga hover_doc<CR>', { desc = 'Hover Doc' })
+
 
 vim.keymap.set("n", "<C-a>", function()
   require("conform").format({
@@ -25,6 +40,7 @@ vim.keymap.set("v", "<leader>a", function()
     lsp_format = "fallback",
   })
 end, { desc = "Format current file" })
+
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
@@ -64,4 +80,3 @@ vim.api.nvim_create_autocmd('LspAttach', {
     map('gt', require('fzf-lua').lsp_typedefs, '[G]oto [T]ype Definition')
   end,
 })
-
