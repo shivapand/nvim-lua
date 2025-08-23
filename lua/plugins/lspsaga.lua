@@ -4,9 +4,6 @@ return {
     require('lspsaga').setup({
       lightbulb = {
         enable = false
-      },
-      diagnostic = {
-        show_code_action = false,
       }
     })
   end,
