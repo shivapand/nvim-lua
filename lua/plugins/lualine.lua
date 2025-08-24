@@ -6,6 +6,7 @@ return {
       sections = {
         lualine_a = {},
         lualine_b = {
+          { 'branch' },
         },
         lualine_c = {
           {
@@ -13,7 +14,9 @@ return {
             path = 1
           }
         },
-        lualine_x = { 'diagnostics' },
+        lualine_x = {
+          'diagnostics'
+        },
         lualine_y = {},
         lualine_z = {}
       }
