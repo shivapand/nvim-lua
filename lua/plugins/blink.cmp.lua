@@ -16,15 +16,15 @@ return {
         auto_brackets = {
           enabled = false
         }
-      },
-      trigger = {
-        show_on_trigger_character = false
       }
     },
     sources = {
       default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
       providers = {
-        lsp = { fallbacks = {} },
+        lsp = {
+          fallbacks = {},
+          min_keyword_length = 2
+        },
         lazydev = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
