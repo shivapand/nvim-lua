@@ -45,5 +45,13 @@ return {
         'stylelint-lsp'
       }
     })
+
+    require('lspconfig').emmet_language_server.setup({
+      filetypes = {
+        "scss",
+        "html",
+        "javascript",
+      }
+    })
   end
 }
