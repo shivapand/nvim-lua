@@ -7,19 +7,6 @@ vim.keymap.set(
 
 vim.keymap.set(
   'n',
-  '<Leader>j',
-  ':execute "tabmove" tabpagenr() - 2<CR>',
-  { desc = 'Move tab prev' }
-)
-vim.keymap.set(
-  'n',
-  '<Leader>k',
-  ':execute "tabmove" tabpagenr() + 1<CR>',
-  { desc = 'Move tab next' }
-)
-
-vim.keymap.set(
-  'n',
   '<Leader>/', ':noh<CR>',
   { desc = 'Clear search highlight' }
 )
@@ -129,8 +116,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
               )
             end
 
-            vim.cmd("tab split")
-
             vim.lsp.buf.definition()
           end,
         })
@@ -163,3 +148,36 @@ vim.api.nvim_create_autocmd('LspAttach', {
     )
   end,
 })
+
+vim.keymap.set(
+  'n',
+  '<C-S-Up>',
+  '<Cmd>BufferPrevious<CR>',
+  { desc = 'BufferPrevious' }
+)
+vim.keymap.set(
+  'n',
+  '<C-S-Down>',
+  '<Cmd>BufferNext<CR>',
+  { desc = 'BufferNext' }
+)
+vim.keymap.set(
+  'n',
+  '<Leader>j',
+  function()
+    vim.cmd('BufferMovePrevious')
+
+    vim.cmd('Mksession!');
+  end,
+  { desc = 'BufferMovePrevious' }
+)
+vim.keymap.set(
+  'n',
+  '<Leader>k',
+  function()
+    vim.cmd('BufferMoveNext')
+
+    vim.cmd('Mksession!');
+  end,
+  { desc = 'BufferMoveNext' }
+)
