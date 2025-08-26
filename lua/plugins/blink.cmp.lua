@@ -25,6 +25,10 @@ return {
           fallbacks = {},
           min_keyword_length = 2
         },
+        path = {
+          fallbacks = {},
+          min_keyword_length = 2
+        },
         lazydev = {
           name = "LazyDev",
           module = "lazydev.integrations.blink",

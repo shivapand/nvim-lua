@@ -50,7 +50,7 @@ return {
       filetypes = {
         "scss",
         "html",
-        "javascript",
+        "javascript"
       }
     })
   end
