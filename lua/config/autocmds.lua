@@ -1,5 +1,4 @@
 vim.opt.updatetime = 500
-
 vim.api.nvim_create_autocmd(
   'CursorHold',
   {
@@ -28,9 +27,15 @@ vim.api.nvim_create_autocmd(
 
 
 vim.opt.sessionoptions:append('globals')
-vim.api.nvim_create_autocmd("User", {
-  pattern = "PersistenceSavePre",
-  callback = function()
-    vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
-  end,
-})
+vim.api.nvim_create_autocmd(
+  'User',
+  {
+    pattern = 'PersistenceSavePre',
+    callback = function()
+      vim.api.nvim_exec_autocmds(
+        'User',
+        { pattern = 'SessionSavePre' }
+      )
+    end,
+  }
+)

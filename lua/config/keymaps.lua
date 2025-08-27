@@ -2,20 +2,29 @@ vim.keymap.set(
   { 'i', 'n' },
   '<C-s>',
   '<ESC>:silent w<CR>',
-  { desc = 'Save file' }
+  {
+    desc = 'Save file',
+    silent = true
+  }
 )
 
 vim.keymap.set(
   'n',
   '<Leader>/', ':noh<CR>',
-  { desc = 'Clear search highlight' }
+  {
+    desc = 'Clear search highlight',
+    silent = true
+  }
 )
 
 vim.keymap.set(
   'n',
   '<Leader>g',
   ':call system("xclip -i -selection clipboard", expand("%:~:."))<CR>',
-  { desc = 'Copy file path' }
+  {
+    desc = 'Copy file path',
+    silent = true
+  }
 )
 
 vim.keymap.set(
