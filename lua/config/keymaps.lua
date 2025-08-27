@@ -166,8 +166,6 @@ vim.keymap.set(
   '<Leader>j',
   function()
     vim.cmd('BufferMovePrevious')
-
-    vim.cmd('Mksession!');
   end,
   { desc = 'BufferMovePrevious' }
 )
@@ -176,8 +174,35 @@ vim.keymap.set(
   '<Leader>k',
   function()
     vim.cmd('BufferMoveNext')
-
-    vim.cmd('Mksession!');
   end,
   { desc = 'BufferMoveNext' }
+)
+
+vim.keymap.set(
+  'n',
+  '<leader>qs',
+  function()
+    require('persistence').load()
+  end
+)
+vim.keymap.set(
+  'n',
+  '<leader>qS',
+  function()
+    require('persistence').select()
+  end
+)
+vim.keymap.set(
+  'n',
+  '<leader>ql',
+  function()
+    require('persistence').load({ last = true })
+  end
+)
+vim.keymap.set(
+  'n',
+  '<leader>qd',
+  function()
+    require('persistence').stop()
+  end
 )
