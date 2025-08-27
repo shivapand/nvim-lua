@@ -1,8 +1,0 @@
-{
-  "coc.preferences.jumpCommand": "tabe",
-  "eslint.alwaysShowStatus": true,
-  "diagnostic.errorSign": "󰅚 ",
-  "diagnostic.warningSign": "󰀪 ",
-  "diagnostic.infoSign": "󰋽 ",
-  "diagnostic.hintSign": "󰌶 "
-}
