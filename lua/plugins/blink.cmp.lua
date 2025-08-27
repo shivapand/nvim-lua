@@ -27,7 +27,11 @@ return {
         },
         path = {
           fallbacks = {},
-          min_keyword_length = 2
+        },
+        buffer = {
+          opts = {
+            get_bufnrs = vim.api.nvim_list_bufs
+          }
         },
         lazydev = {
           name = "LazyDev",
