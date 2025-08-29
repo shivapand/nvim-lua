@@ -1,50 +1,67 @@
 return {
   'saghen/blink.cmp',
   dependencies = { 'rafamadriz/friendly-snippets' },
-  version = '1.*',
+  version = '*',
   opts = {
-    keymap = { preset = 'enter' },
     appearance = {
       nerd_font_variant = 'mono'
     },
     completion = {
       documentation = {
         auto_show = true,
-        auto_show_delay_ms = 500
-      },
-      accept = {
-        auto_brackets = {
-          enabled = false
-        }
+        auto_show_delay_ms = 250,
+        update_delay_ms = 50,
+        treesitter_highlighting = true
       }
+    },
+    keymap = {
+      preset = 'enter',
+      ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+      ['<Tab>'] = {
+        function(cmp)
+          return cmp.select_next()
+        end,
+        'snippet_forward',
+        'fallback'
+      },
+      ['<S-Tab>'] = {
+        function(cmp)
+          return cmp.select_prev()
+        end,
+        'snippet_backward',
+        'fallback'
+      },
+      ['<Up>'] = { 'select_prev', 'fallback' },
+      ['<Down>'] = { 'select_next', 'fallback' }
     },
     sources = {
       default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
       providers = {
+        lazydev = {
+          name = 'LazyDev',
+          module = 'lazydev.integrations.blink',
+          score_offset = 0,
+          fallbacks = {}
+        },
         lsp = {
-          fallbacks = {},
-          min_keyword_length = 2
+          score_offset = 0,
+          min_keyword_length = 2,
+          fallbacks = {}
         },
         path = {
-          fallbacks = {},
+          score_offset = 3,
+          min_keyword_length = 0,
+          fallbacks = {}
+        },
+        snippets = {
+          score_offset = -1,
+          min_keyword_length = 2,
+          fallbacks = {}
         },
         buffer = {
-          opts = {
-            get_bufnrs = vim.api.nvim_list_bufs
-          }
-        },
-        lazydev = {
-          name = "LazyDev",
-          module = "lazydev.integrations.blink",
-          score_offset = 100,
-        },
+          score_offset = 3
+        }
       }
-    },
-    fuzzy = { implementation = "prefer_rust_with_warning" }
-  },
-  cmdline = {
-    keymap = { preset = 'inherit' },
-    completion = { menu = { auto_show = true } },
-  },
-  opts_extend = { "sources.default" }
+    }
+  }
 }
