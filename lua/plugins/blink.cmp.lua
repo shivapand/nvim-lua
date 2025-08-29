@@ -7,6 +7,7 @@ return {
       nerd_font_variant = 'mono'
     },
     completion = {
+      accept = { auto_brackets = { enabled = true } },
       documentation = {
         auto_show = true,
         auto_show_delay_ms = 250,
@@ -38,9 +39,9 @@ return {
       default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
       providers = {
         lazydev = {
+          score_offset = 0,
           name = 'LazyDev',
           module = 'lazydev.integrations.blink',
-          score_offset = 0,
           fallbacks = {}
         },
         lsp = {
@@ -59,9 +60,17 @@ return {
           fallbacks = {}
         },
         buffer = {
-          score_offset = 3
+          score_offset = 3,
+          min_keyword_length = 4,
+          max_items = 5,
+          opts = {
+            get_bufnrs = vim.api.nvim_list_bufs
+          }
         }
       }
+    },
+    signature = {
+      enabled = true
     }
   }
 }
