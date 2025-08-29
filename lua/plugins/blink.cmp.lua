@@ -62,7 +62,6 @@ return {
         buffer = {
           score_offset = 3,
           min_keyword_length = 4,
-          max_items = 5,
           opts = {
             get_bufnrs = vim.api.nvim_list_bufs
           }
