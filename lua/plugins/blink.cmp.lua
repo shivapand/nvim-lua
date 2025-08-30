@@ -61,7 +61,7 @@ return {
         },
         buffer = {
           score_offset = 3,
-          min_keyword_length = 4,
+          min_keyword_length = 2,
           opts = {
             get_bufnrs = vim.api.nvim_list_bufs
           }
@@ -70,6 +70,23 @@ return {
     },
     signature = {
       enabled = true
+    },
+    fuzzy = {
+      implementation = "prefer_rust_with_warning",
+      sorts = {
+        function(a, b)
+          if a.source_name ~= 'LSP' or b.source_name ~= 'LSP' then
+            return
+          end
+
+          local name = vim.lsp.get_client_by_id(b.client_id).name
+
+          return name == 'emmet_language_server'
+        end,
+        'score',
+        'sort_text',
+      },
     }
-  }
+  },
+  opts_extend = { "sources.default" }
 }
