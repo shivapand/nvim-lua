@@ -9,9 +9,10 @@ return {
     animation = false,
     tabpages = false,
     clickable = true,
+    focus_on_close = 'left',
     icons = {
       button = false,
-      separator = {left = '▎', right = ''},
+      separator = { left = '▎', right = '' },
       separator_at_end = true,
       preset = 'default',
       current = { buffer_index = true },

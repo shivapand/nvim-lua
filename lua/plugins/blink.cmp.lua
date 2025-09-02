@@ -71,16 +71,21 @@ return {
       implementation = "prefer_rust_with_warning",
       sorts = {
         function(a, b)
-          if a.source_name ~= 'LSP' or b.source_name ~= 'LSP' then
-            return
+          -- Prioritize items that are NOT from emmet_ls
+          if a.client_name == 'emmet_language_server' and
+              b.client_name ~= 'emmet_language_server' then
+            return false -- 'a' (emmet) comes after 'b' (non-emmet)
+          elseif a.client_name ~= 'emmet_language_server' and
+              b.client_name == 'emmet_language_server' then
+            return true -- 'a' (non-emmet) comes before 'b' (emmet)
           end
 
-          local name = vim.lsp.get_client_by_id(b.client_id).name
-
-          return name == 'emmet_language_server'
+          -- If both are emmet or both are non-emmet,
+          -- or if client_name is not available, fall back to other sorts
+          return nil
         end,
-        'score',
-        'sort_text',
+        'score',     -- Fallback to score-based sorting
+        'sort_text', -- Fallback to sort_text
       },
     }
   },
