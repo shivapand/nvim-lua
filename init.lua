@@ -6,4 +6,4 @@ require('config.autocmds')
 
 require('config.lazy')
 
-require('config.customs')
+require('custom.scrollsave').setup();
