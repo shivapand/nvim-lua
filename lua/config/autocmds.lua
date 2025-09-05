@@ -39,3 +39,24 @@ vim.api.nvim_create_autocmd(
     end,
   }
 )
+
+
+local buf_views = {}
+vim.api.nvim_create_autocmd("BufLeave", {
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+
+    buf_views[buf] = vim.fn.winsaveview()
+  end,
+})
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    local buf = vim.api.nvim_get_current_buf()
+
+    local view = buf_views[buf]
+
+    if view then
+      vim.fn.winrestview(view)
+    end
+  end,
+})
