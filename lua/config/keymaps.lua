@@ -189,39 +189,6 @@ vim.keymap.set(
 
 vim.keymap.set(
   'n',
-  '<leader>qs',
-  function()
-    require('persistence').load()
-  end,
-  { desc = 'persistence load' }
-)
-vim.keymap.set(
-  'n',
-  '<leader>qS',
-  function()
-    require('persistence').select()
-  end,
-  { desc = 'persistence select' }
-)
-vim.keymap.set(
-  'n',
-  '<leader>ql',
-  function()
-    require('persistence').load({ last = true })
-  end,
-  { desc = 'persistence load last' }
-)
-vim.keymap.set(
-  'n',
-  '<leader>qd',
-  function()
-    require('persistence').stop()
-  end,
-  { desc = 'persistence stop' }
-)
-
-vim.keymap.set(
-  'n',
   '<leader>bd',
   '<Cmd>BufferClose<CR>',
   { desc = 'Close current buffer' }
