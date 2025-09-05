@@ -87,6 +87,6 @@ return {
         require("fzf-lua").lgrep_curbuf()
       end,
       desc = "[/] Live grep the current buffer",
-    },
+    }
   }
 }

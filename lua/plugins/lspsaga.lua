@@ -9,5 +9,5 @@ return {
         enable = false
       }
     })
-  end,
+  end
 }

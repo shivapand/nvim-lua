@@ -71,22 +71,19 @@ return {
       implementation = "prefer_rust_with_warning",
       sorts = {
         function(a, b)
-          -- Prioritize items that are NOT from emmet_ls
           if a.client_name == 'emmet_language_server' and
               b.client_name ~= 'emmet_language_server' then
-            return false -- 'a' (emmet) comes after 'b' (non-emmet)
+            return false
           elseif a.client_name ~= 'emmet_language_server' and
               b.client_name == 'emmet_language_server' then
-            return true -- 'a' (non-emmet) comes before 'b' (emmet)
+            return true
           end
 
-          -- If both are emmet or both are non-emmet,
-          -- or if client_name is not available, fall back to other sorts
           return nil
         end,
-        'score',     -- Fallback to score-based sorting
-        'sort_text', -- Fallback to sort_text
-      },
+        'score',
+        'sort_text'
+      }
     }
   },
   opts_extend = { "sources.default" }
