@@ -12,7 +12,7 @@ return {
       auto_install = true,
 
       highlight = {
-        enable = false
+        enable = true
       },
       indent = {
         enable = false
