@@ -8,7 +8,6 @@ local view_file = vim.fn.stdpath("data") .. "/scroll_positions.json"
 
 -- Load views from file
 local function load_views()
-  print('Load')
   local f = io.open(view_file, "r")
   if not f then return {} end
   local ok, data = pcall(vim.json.decode, f:read("*a"))
