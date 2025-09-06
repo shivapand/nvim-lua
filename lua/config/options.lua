@@ -24,3 +24,5 @@ vim.opt.splitright = true
 
 vim.opt.virtualedit = 'block'
 vim.opt.inccommand = 'split'
+
+vim.opt.showtabline = 2
