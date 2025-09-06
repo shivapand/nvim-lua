@@ -161,13 +161,36 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 vim.keymap.set(
   'n',
+  '<C-S-Up>',
+  '<Cmd>BufferPrevious<CR>',
+  { desc = 'BufferPrevious' }
+)
+vim.keymap.set(
+  'n',
+  '<C-S-Down>',
+  '<Cmd>BufferNext<CR>',
+  { desc = 'BufferNext' }
+)
+vim.keymap.set(
+  'n',
   '<Leader>j',
-  ':execute "tabmove" tabpagenr() - 2<CR>',
-  { desc = 'Move tab prev' }
+  function()
+    vim.cmd('BufferMovePrevious')
+  end,
+  { desc = 'BufferMovePrevious' }
 )
 vim.keymap.set(
   'n',
   '<Leader>k',
-  ':execute "tabmove" tabpagenr() + 1<CR>',
-  { desc = 'Move tab next' }
+  function()
+    vim.cmd('BufferMoveNext')
+  end,
+  { desc = 'BufferMoveNext' }
+)
+
+vim.keymap.set(
+  'n',
+  '<leader>bd',
+  '<Cmd>BufferClose<CR>',
+  { desc = 'Close current buffer' }
 )

@@ -26,3 +26,36 @@ vim.api.nvim_create_autocmd(
     desc = 'Fix for Oil opening files with absolute-path'
   }
 )
+
+
+vim.opt.sessionoptions:append 'globals'
+
+vim.api.nvim_create_autocmd({ 'User' }, {
+  pattern = 'PersistedSavePre',
+  group = vim.api.nvim_create_augroup('PersistedHooks', {}),
+  callback = function()
+    vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
+  end,
+})
+
+
+local positions = {}
+
+vim.api.nvim_create_autocmd("BufWinLeave", {
+  callback = function(ev)
+    if vim.bo[ev.buf].buftype == "" then
+      positions[ev.buf] = vim.fn.winsaveview()
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function(ev)
+    local view = positions[ev.buf]
+    if view then
+      vim.defer_fn(function()
+        pcall(vim.fn.winrestview, view)
+      end, 0)
+    end
+  end,
+})
