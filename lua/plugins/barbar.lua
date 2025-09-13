@@ -18,7 +18,7 @@ return {
       current = { buffer_index = true },
     },
     minimum_padding = 1,
-    maximum_padding = 1
+    maximum_padding = 2
   },
   version = '^1.0.0'
 }
