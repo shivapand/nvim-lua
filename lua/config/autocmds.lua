@@ -43,5 +43,5 @@ vim.cmd.source(vim.fn.stdpath("config") .. '/vim/avoid_scrolling_when_switch_buf
 vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
     vim.api.nvim_set_hl(0, "BufferCurrentSign", { fg = "#00f5ff", bg = "NONE" })
-  end,
+  end
 })

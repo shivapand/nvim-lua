@@ -13,10 +13,12 @@ return {
     icons = {
       button = false,
       separator = { left = '▎', right = '' },
-      separator_at_end = true,
+      separator_at_end = false,
       preset = 'default',
       current = { buffer_index = true },
-    }
+    },
+    minimum_padding = 1,
+    maximum_padding = 1
   },
   version = '^1.0.0'
 }
