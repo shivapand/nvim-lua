@@ -2,7 +2,8 @@ return {
   "olimorris/persisted.nvim",
   config = function()
     require('persisted').setup({
-      autostart = true
+      autostart = true,
+      autoload = true
     })
   end
 }
