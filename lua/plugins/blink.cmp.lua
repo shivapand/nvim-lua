@@ -86,5 +86,9 @@ return {
       }
     }
   },
-  opts_extend = { "sources.default" }
+  opts_extend = { "sources.default" },
+  cmdline = {
+    keymap = { preset = 'inherit' },
+    completion = { menu = { auto_show = true } },
+  },
 }
