@@ -45,7 +45,7 @@ return {
         },
         lsp = {
           score_offset = 0,
-          -- min_keyword_length = 2,
+          min_keyword_length = 2,
           fallbacks = {}
         },
         path = {
@@ -60,7 +60,7 @@ return {
         },
         buffer = {
           score_offset = 3,
-          -- min_keyword_length = 2,
+          min_keyword_length = 2,
           opts = {
             get_bufnrs = vim.api.nvim_list_bufs
           }
