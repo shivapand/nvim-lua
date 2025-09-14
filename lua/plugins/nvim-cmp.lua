@@ -20,6 +20,9 @@ return {
 
     -- Friendly snippets
     "rafamadriz/friendly-snippets",
+
+    -- Icons
+    "onsails/lspkind.nvim",
   },
   config = function()
     local cmp = require("cmp")
@@ -28,6 +31,18 @@ return {
     luasnip.config.setup({})
 
     cmp.setup({
+      formatting = {
+        format = require('lspkind').cmp_format({
+          mode = 'symbol_text', -- show symbol and text
+          maxwidth = 50, -- truncate text if it's too long
+          menu = {
+            buffer = "[Buffer]",
+            nvim_lsp = "[LSP]",
+            luasnip = "[Snippet]",
+            path = "[Path]",
+          }
+        })
+      },
       snippet = {
         expand = function(args)
           luasnip.lsp_expand(args.body)
