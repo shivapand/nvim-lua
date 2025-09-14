@@ -20,10 +20,12 @@ vim.keymap.set(
 vim.keymap.set(
   'n',
   '<Leader>g',
-  ':call system("xclip -i -selection clipboard", expand("%:~:."))<CR>',
+  function()
+    vim.fn.setreg('+', vim.fn.expand('%:~:.'))
+  end,
   {
     desc = 'Copy file path',
-    silent = true
+    silent = true,
   }
 )
 
@@ -54,18 +56,8 @@ vim.keymap.set(
 )
 
 vim.keymap.set(
-  'n',
+  { 'n', 'v' },
   '<C-a>',
-  function()
-    require("conform").format({
-      lsp_format = "fallback",
-    })
-  end,
-  { desc = "Format current file" }
-)
-vim.keymap.set(
-  'v',
-  '<leader>a',
   function()
     require("conform").format({
       lsp_format = "fallback",
