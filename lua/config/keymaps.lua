@@ -186,3 +186,11 @@ vim.keymap.set(
   '<Cmd>BufferClose<CR>',
   { desc = 'Close current buffer' }
 )
+
+vim.keymap.set(
+  "n",
+  "<Esc>",
+  function()
+    require("notify").dismiss()
+  end,
+  { desc = "dismiss notify popup and clear hlsearch" })
