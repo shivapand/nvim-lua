@@ -34,7 +34,7 @@ return {
       formatting = {
         format = require('lspkind').cmp_format({
           mode = 'symbol_text', -- show symbol and text
-          maxwidth = 50, -- truncate text if it's too long
+          maxwidth = 50,        -- truncate text if it's too long
           menu = {
             buffer = "[Buffer]",
             nvim_lsp = "[LSP]",
@@ -77,7 +77,20 @@ return {
       -- The same sources you had with blink.cmp
       sources = {
         { name = "buffer" },
-        { name = "nvim_lsp" },
+        {
+          name = "nvim_lsp",
+          entry_filter = function(entry, ctx)
+            -- only check emmet-ls completions
+            if entry.source.name == "nvim_lsp" and entry.completion_item.detail == "Emmet Abbreviation" then
+              local before_cursor = ctx.cursor_before_line
+              -- block when typing something like x.y: (variable/prop style)
+              if before_cursor:match("[%w_]+%.[%w_]*:?$") then
+                return false
+              end
+            end
+            return true
+          end,
+        },
         { name = "luasnip" },
         { name = "path" },
       },
