@@ -26,22 +26,3 @@ vim.api.nvim_create_autocmd(
     desc = 'Fix for Oil opening files with absolute-path'
   }
 )
-
-
-vim.opt.sessionoptions:append 'globals'
-
-vim.api.nvim_create_autocmd({ 'User' }, {
-  pattern = 'PersistedSavePre',
-  group = vim.api.nvim_create_augroup('PersistedHooks', {}),
-  callback = function()
-    vim.api.nvim_exec_autocmds('User', { pattern = 'SessionSavePre' })
-  end,
-})
-
-vim.cmd.source(vim.fn.stdpath("config") .. '/vim/avoid_scrolling_when_switch_buffers.vim')
-
-vim.api.nvim_create_autocmd("ColorScheme", {
-  callback = function()
-    vim.api.nvim_set_hl(0, "BufferCurrentSign", { fg = "#00f5ff", bg = "NONE" })
-  end
-})
