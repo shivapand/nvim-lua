@@ -15,7 +15,6 @@ return {
         get_element_icon = function(buf)
           return require("nvim-web-devicons").get_icon(buf.name, nil, { default = false })
         end,
-
         name_formatter = function(buf)
           -- fallback if path is nil
           if not buf.path or buf.path == "" then
