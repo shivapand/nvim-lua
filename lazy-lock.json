@@ -1,5 +1,4 @@
 {
-  "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
   "bufexplorer": { "branch": "master", "commit": "b96d275811b92e86ee52be3112e1de735ba08fb9" },
   "coc.nvim": { "branch": "master", "commit": "3d8356d7abc37ebc7e8583401513346c90c5c2a8" },
   "ctrlp.vim": { "branch": "master", "commit": "564176f01d7f3f7f8ab452ff4e1f5314de7b0981" },
@@ -9,14 +8,14 @@
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
   "lazydev.nvim": { "branch": "main", "commit": "258d2a5ef4a3e3d6d9ba9da72c9725c53e9afcbd" },
   "lualine.nvim": { "branch": "master", "commit": "b8c23159c0161f4b89196f74ee3a6d02cdc3a955" },
-  "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
-  "nvim-treesitter-textobjects": { "branch": "master", "commit": "71385f191ec06ffc60e80e6b0c9a9d5daed4824c" },
-  "nvim-ts-context-commentstring": { "branch": "main", "commit": "1b212c2eee76d787bbea6aa5e92a2b534e7b4f8f" },
+  "nerdcommenter": { "branch": "master", "commit": "02a3b6455fa07b61b9440a78732f1e9b7876c991" },
   "nvim-web-devicons": { "branch": "master", "commit": "6e51ca170563330e063720449c21f43e27ca0bc1" },
   "oil.nvim": { "branch": "master", "commit": "07f80ad645895af849a597d1cac897059d89b686" },
   "tokyonight.nvim": { "branch": "main", "commit": "14fd5ff7f84027064724ec3157fe903199e77ded" },
   "vim-airline": { "branch": "master", "commit": "e40a696db0cb8ae412bceee93c94ff27091151ee" },
   "vim-airline-themes": { "branch": "master", "commit": "0e976956eb674db8a6f72fae4dda6d1277433660" },
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" },
+  "vim-javascript": { "branch": "master", "commit": "b26c9edb3563e02f5c0b20580f7cf9743e95b157" },
+  "vim-jsx-pretty": { "branch": "master", "commit": "6989f1663cc03d7da72b5ef1c03f87e6ddb70b41" },
   "vim-obsession": { "branch": "master", "commit": "ed9dfc7c2cc917ace8b24f4f9f80a91e05614b63" }
 }

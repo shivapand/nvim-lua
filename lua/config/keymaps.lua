@@ -48,3 +48,11 @@ vim.keymap.set(
   ':execute "tabmove" tabpagenr() + 1<CR>',
   { desc = 'Move tab next' }
 )
+
+vim.keymap.set(
+  'n',
+  '<C-n>',
+  ':NERDTreeToggle<CR>',
+  {desc = 'Toggle NERDTree'}
+)
+
