@@ -63,12 +63,20 @@ return {
             return true
           end,
         },
-        { name = "buffer" },
+        {
+          name = "buffer",
+          option = {
+            get_bufnrs = function()
+              -- return all loaded buffers
+              return vim.api.nvim_list_bufs()
+            end
+          }
+        },
         { name = "path" },
       }),
 
-    -- Behave like coc.nvim
-    preselect = cmp.PreselectMode.Item,
+      -- Behave like coc.nvim
+      preselect = cmp.PreselectMode.Item,
       completion = {
         completeopt = "menu,menuone,noinsert",
       },

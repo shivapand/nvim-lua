@@ -1,7 +1,7 @@
 return {
   'akinsho/bufferline.nvim',
-  dependencies = {'nvim-tree/nvim-web-devicons'},
-  config = function ()
+  dependencies = { 'nvim-tree/nvim-web-devicons' },
+  config = function()
     require("bufferline").setup {
       options = {
         mode = "tabs",
@@ -9,7 +9,8 @@ return {
         show_close_icon = false,
         show_buffer_close_icons = false,
         diagnostics = 'coc',
-        diagnostics_update_in_insert = true
+        diagnostics_update_in_insert = true,
+        show_buffer_icons = true
       }
     }
   end
