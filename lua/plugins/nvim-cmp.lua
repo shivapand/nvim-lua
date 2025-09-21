@@ -67,8 +67,13 @@ return {
           name = "buffer",
           option = {
             get_bufnrs = function()
-              -- return all loaded buffers
-              return vim.api.nvim_list_bufs()
+              local bufs = {}
+              for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+                if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
+                  table.insert(bufs, buf)
+                end
+              end
+              return bufs
             end
           }
         },
