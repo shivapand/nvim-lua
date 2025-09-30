@@ -12,10 +12,10 @@ return {
       auto_install = true,
 
       highlight = {
-        enable = true
+        enable = false
       },
       indent = {
-        enable = true
+        enable = false
       },
       incremental_selection = {
         enable = true,
