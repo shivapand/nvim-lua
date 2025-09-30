@@ -5,83 +5,113 @@ return {
     "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
+    "L3MON4D3/LuaSnip",
+    "saadparwaiz1/cmp_luasnip",
   },
   config = function()
     local cmp = require("cmp")
+    local luasnip = require("luasnip")
+
+    -- Optional: icon mapping
+    local kind_icons = {
+      Text = "",
+      Method = "ƒ",
+      Function = "",
+      Variable = "",
+      Field = "ﰠ",
+      Class = "",
+    }
+
     cmp.setup({
       mapping = {
-        -- Confirm with Enter (like coc.nvim)
         ["<CR>"] = cmp.mapping.confirm({ select = true }),
 
-        -- Tab / Shift-Tab to cycle items, else fallback
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          elseif luasnip.expand_or_jumpable() then
+            luasnip.expand_or_jump()
           else
             fallback()
           end
-        end, { "i", "s", "c" }),
+        end, { "i", "s" }),
 
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+          elseif luasnip.jumpable(-1) then
+            luasnip.jump(-1)
           else
             fallback()
           end
-        end, { "i", "s", "c" }),
+        end, { "i", "s" }),
 
-        -- Arrow keys to cycle items, else fallback
-        ["<Down>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-          else
-            fallback()
-          end
-        end, { "i", "c" }),
-
-        ["<Up>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-          else
-            fallback()
-          end
-        end, { "i", "c" }),
-
-        -- Ctrl+Space to trigger completion (like coc.nvim)
+        ["<Down>"] = cmp.mapping.select_next_item(),
+        ["<Up>"] = cmp.mapping.select_prev_item(),
         ["<C-Space>"] = cmp.mapping.complete(),
+
+        -- Right arrow to accept ghost text
+        ["<Right>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.confirm({ select = true })
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
       },
+
+      -- Sources
       sources = cmp.config.sources({
         {
           name = "nvim_lsp",
           entry_filter = function(entry, ctx)
-            -- block all Emmet completions
-            if entry.source.name == "nvim_lsp" and entry.completion_item.detail == "Emmet Abbreviation" then
+            -- filter Emmet in JS/TS/React to avoid "x.y:" / "<window:>"
+            local ft = vim.bo.filetype
+            if entry.source.name == "nvim_lsp"
+                and entry.completion_item.detail == "Emmet Abbreviation"
+                and (ft == "javascript" or ft == "javascriptreact"
+                  or ft == "typescript" or ft == "typescriptreact") then
               return false
             end
             return true
           end,
         },
-        {
-          name = "buffer",
-          option = {
-            get_bufnrs = function()
-              local bufs = {}
-              for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-                if vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted then
-                  table.insert(bufs, buf)
-                end
-              end
-              return bufs
-            end
-          }
-        },
+        { name = "luasnip" },
+        { name = "buffer", option = { get_bufnrs = vim.api.nvim_list_bufs } },
         { name = "path" },
       }),
 
-      -- Behave like coc.nvim
+      -- Preselect like CoC
       preselect = cmp.PreselectMode.Item,
+
+      -- Auto-popup
       completion = {
+        autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged },
         completeopt = "menu,menuone,noinsert",
+      },
+
+      -- Documentation popup
+      window = {
+        documentation = cmp.config.window.bordered(),
+      },
+
+      -- Ghost text like CoC
+      experimental = {
+        ghost_text = true,
+      },
+
+      -- Clean formatting: abbr, icon, menu
+      formatting = {
+        format = function(entry, vim_item)
+          vim_item.kind = kind_icons[vim_item.kind] or vim_item.kind
+          vim_item.menu = ({
+            nvim_lsp = "[LSP]",
+            buffer = "[B]",
+            path = "[P]",
+            luasnip = "[S]",
+          })[entry.source.name]
+          return vim_item
+        end,
       },
     })
   end,
