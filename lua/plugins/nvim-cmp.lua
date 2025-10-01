@@ -7,24 +7,80 @@ return {
     "hrsh7th/cmp-path",
     "L3MON4D3/LuaSnip",
     "saadparwaiz1/cmp_luasnip",
+    "rafamadriz/friendly-snippets",
   },
   config = function()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
 
-    -- Optional: icon mapping
+    require("luasnip.loaders.from_vscode").lazy_load()
+
     local kind_icons = {
       Text = "",
-      Method = "ƒ",
-      Function = "",
-      Variable = "",
-      Field = "ﰠ",
-      Class = "",
+      Method = "󰆧",
+      Function = "󰊕",
+      Constructor = "",
+      Field = "󰇽",
+      Variable = "󰂡",
+      Class = "󰠱",
+      Interface = "",
+      Module = "",
+      Property = "󰜢",
+      Unit = "",
+      Value = "󰎠",
+      Enum = "",
+      Keyword = "󰌋",
+      Snippet = "",
+      Color = "󰏘",
+      File = "󰈙",
+      Reference = "",
+      Folder = "󰉋",
+      EnumMember = "",
+      Constant = "󰏿",
+      Struct = "",
+      Event = "",
+      Operator = "󰆕",
+      TypeParameter = "󰅲",
     }
+
+    -- Custom status color source
+    local statusDefinitionCollection = {
+      { text = "generated", color = "#145DE4" },
+      { text = "resolved",  color = "#72FFE6" },
+      { text = "ignored",   color = "#FF778F" },
+    }
+
+    local status_source = {}
+    status_source.new = function()
+      return setmetatable({}, { __index = status_source })
+    end
+
+    status_source.get_trigger_characters = function()
+      return { ":" }
+    end
+
+    status_source.complete = function(self, params, callback)
+      local items = {}
+      for _, status in ipairs(statusDefinitionCollection) do
+        table.insert(items, {
+          label = status.color,
+          insertText = status.color,
+          kind = cmp.lsp.CompletionItemKind.Color,
+          documentation = status.text,
+        })
+      end
+      callback({ items = items, isIncomplete = false })
+    end
+
+    status_source.resolve = function(self, item, callback)
+      callback(item)
+    end
+
+    cmp.register_source("status_source", status_source.new())
 
     cmp.setup({
       mapping = {
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<CR>"] = cmp.mapping.confirm({ select = false }),
 
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
@@ -46,11 +102,24 @@ return {
           end
         end, { "i", "s" }),
 
-        ["<Down>"] = cmp.mapping.select_next_item(),
-        ["<Up>"] = cmp.mapping.select_prev_item(),
+        ["<Down>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
+        ["<Up>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
         ["<C-Space>"] = cmp.mapping.complete(),
 
-        -- Right arrow to accept ghost text
         ["<Right>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.confirm({ select = true })
@@ -60,12 +129,10 @@ return {
         end, { "i", "s" }),
       },
 
-      -- Sources
-      sources = cmp.config.sources({
+      sources = {
         {
           name = "nvim_lsp",
-          entry_filter = function(entry, ctx)
-            -- filter Emmet in JS/TS/React to avoid "x.y:" / "<window:>"
+          entry_filter = function(entry)
             local ft = vim.bo.filetype
             if entry.source.name == "nvim_lsp"
                 and entry.completion_item.detail == "Emmet Abbreviation"
@@ -77,39 +144,43 @@ return {
           end,
         },
         { name = "luasnip" },
-        { name = "buffer", option = { get_bufnrs = vim.api.nvim_list_bufs } },
+        {
+          name = "buffer",
+          option = {
+            get_bufnrs = function()
+              return vim.tbl_filter(function(buf)
+                return vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted
+              end, vim.api.nvim_list_bufs())
+            end,
+          },
+        },
         { name = "path" },
-      }),
+        { name = "status_source", priority = 100 },
+      },
 
-      -- Preselect like CoC
       preselect = cmp.PreselectMode.Item,
+      completion = { completeopt = "menu,menuone,noinsert" },
+      window = { documentation = cmp.config.window.bordered() },
+      experimental = { ghost_text = true },
 
-      -- Auto-popup
-      completion = {
-        autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged },
-        completeopt = "menu,menuone,noinsert",
-      },
-
-      -- Documentation popup
-      window = {
-        documentation = cmp.config.window.bordered(),
-      },
-
-      -- Ghost text like CoC
-      experimental = {
-        ghost_text = true,
-      },
-
-      -- Clean formatting: abbr, icon, menu
       formatting = {
         format = function(entry, vim_item)
-          vim_item.kind = kind_icons[vim_item.kind] or vim_item.kind
+          -- Show full text for all sources
+          vim_item.abbr = entry:get_insert_text() or entry.completion_item.label
+          vim_item.kind = string.format("%s %s", kind_icons[vim_item.kind] or "", vim_item.kind)
+
+          if entry.source.name == "luasnip" and not vim_item.abbr:match("~$") then
+            vim_item.abbr = vim_item.abbr .. "~"
+          end
+
           vim_item.menu = ({
             nvim_lsp = "[LSP]",
+            luasnip = "[S]",
             buffer = "[B]",
             path = "[P]",
-            luasnip = "[S]",
+            status_source = "[C]",
           })[entry.source.name]
+
           return vim_item
         end,
       },
