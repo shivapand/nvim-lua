@@ -1,0 +1,28 @@
+# .stylua.toml
+
+# Maximum line length
+column_width = 200
+
+# Number of spaces per indent
+indent_width = 2
+
+# Quote style for strings
+# AutoPreferSimple keeps table keys unquoted when possible
+quote_style = "AutoPreferSimple"
+
+# Collapse simple literal tables into one line if they fit
+collapse_simple_args = true
+
+# Use Unix line endings
+line_endings = "Unix"
+
+# Controls how function calls are formatted
+# Set to true to keep simple calls inline
+collapse_simple_call_args = true
+
+# Keep trailing commas on multi-line tables (optional)
+trailing_comma = "Never"
+
+# Formatting arrays with multiple values
+# Set to true to keep small arrays on one line
+force_single_line_simple_table = true
