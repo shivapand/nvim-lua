@@ -54,5 +54,18 @@ return {
         "javascript"
       }
     })
+
+    -- ts_ls setup with proper root_dir detection
+    local lspconfig = require("lspconfig")
+    local util = require("lspconfig.util")
+
+    lspconfig.ts_ls.setup({
+      cmd = { "typescript-language-server", "--stdio" },
+      root_dir = function(fname)
+        return util.root_pattern("jsconfig.json", "tsconfig.json", "package.json")(fname)
+            or util.find_git_ancestor(fname)
+            or vim.loop.os_homedir()
+      end,
+    })
   end
 }
