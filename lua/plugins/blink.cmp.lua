@@ -43,7 +43,24 @@ return {
         },
       },
     },
-    fuzzy = { implementation = "prefer_rust_with_warning" },
+    fuzzy = { 
+      implementation = "prefer_rust_with_warning" ,
+      sorts = {
+        function(a, b)
+          if a.client_name == 'emmet_language_server' and
+            b.client_name ~= 'emmet_language_server' then
+            return false
+          elseif a.client_name ~= 'emmet_language_server' and
+            b.client_name == 'emmet_language_server' then
+            return true
+          end
+
+          return nil
+        end,
+        'score',
+        'sort_text'
+      }
+    },
   },
   opts_extend = { "sources.default" },
 }
