@@ -1,21 +1,3 @@
---[[ return {
-  "echasnovski/mini.pairs",
-  event = "InsertEnter", -- lazy-load on insert
-  config = function()
-    require('mini.pairs').setup({
-      -- default mappings are automatically applied, so you can omit `mappings`
-      -- but if you want to add a custom one like "surround":
-      mappings = {
-        -- wrap text in parentheses with Alt+e
-        ['<M-e>'] = { action = 'surround', pair = '()' },
-
-        -- Only expand ( ... ) if *next* char is not a word
-        ["("] = { action = "open", pair = "()", neigh_pattern = "[^\\w].[^\\w]" },
-      },
-    })
-  end
-} ]]
-
 return {
   "echasnovski/mini.pairs",
   enabled = true,
