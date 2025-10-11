@@ -8,6 +8,11 @@ return {
       accept = {
         auto_brackets = { enabled = false },
       },
+      list = {
+        selection = {
+          auto_insert = false, -- Do not automatically insert on selection
+        }
+      }
     },
     keymap = {
       preset = "enter",
@@ -24,26 +29,26 @@ return {
           name = "LazyDev",
           module = "lazydev.integrations.blink",
           score_offset = 1,
-          min_keyword_length = 3,
+          min_keyword_length = 1,
           fallbacks = {},
         },
         lsp = {
           score_offset = 1,
-          min_keyword_length = 3,
+          min_keyword_length = 1,
           fallbacks = {},
         },
         path = {
           score_offset = 2,
-          min_keyword_length = 1,
+          min_keyword_length = 0,
           fallbacks = {},
         },
         buffer = {
           score_offset = 2,
-          min_keyword_length = 3,
+          min_keyword_length = 1,
         },
       },
     },
-    fuzzy = 
+    fuzzy = {
       implementation = "prefer_rust",
       sorts = {
         function(a, b)
