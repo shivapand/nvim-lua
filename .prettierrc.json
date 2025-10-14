@@ -1,20 +1,5 @@
 {
-  "plugins": ["@prettier/plugin-lua"],
-  "overrides": [
-    {
-      "files": "*.lua",
-      "options": {
-        "parser": "lua",
-        "tabWidth": 2,
-        "useTabs": false,
-        "singleQuote": true,
-        "trailingComma": "none",
-        "semi": false,
-        "printWidth": 80,
-        "luaIndentType": "spaces",
-        "luaIndentWidth": 2,
-        "luaLineEnding": "unix"
-      }
-    }
-  ]
+  "singleQuote": true,
+  "trailingComma": "none",
+  "plugins": ["@prettier/plugin-lua"]
 }
