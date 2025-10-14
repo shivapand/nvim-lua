@@ -1,3 +1,1 @@
-return {
-  'maxmellon/vim-jsx-pretty'
-}
+return { 'maxmellon/vim-jsx-pretty' }

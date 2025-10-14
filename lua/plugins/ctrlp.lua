@@ -1,8 +1,8 @@
 return {
-  'kien/ctrlp.vim',
-  config = function()
-    local vimrc = vim.fn.stdpath("config") .. '/vim/ctrlp.vim'
+	'kien/ctrlp.vim',
+	config = function()
+		local vimrc = vim.fn.stdpath('config') .. '/vim/ctrlp.vim'
 
-    vim.cmd.source(vimrc)
-  end
+		vim.cmd.source(vimrc)
+	end
 }

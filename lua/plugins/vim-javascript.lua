@@ -1,3 +1,1 @@
-return {
-  'pangloss/vim-javascript'
-}
+return { 'pangloss/vim-javascript' }

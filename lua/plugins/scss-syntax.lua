@@ -1,4 +1,4 @@
 return {
-  "cakebaker/scss-syntax.vim",
-  ft = { "scss" },
+	'cakebaker/scss-syntax.vim',
+	ft = { 'scss' }
 }
