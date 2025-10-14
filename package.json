@@ -1,5 +1,7 @@
 {
   "devDependencies": {
+    "@prettier/plugin-lua": "^0.0.3",
+    "prettier": "^3.6.2",
     "webpack-dev-server": "^5.2.2"
   }
 }

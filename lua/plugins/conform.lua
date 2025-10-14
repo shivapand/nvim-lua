@@ -1,12 +1,12 @@
 return {
-  "stevearc/conform.nvim",
+  'stevearc/conform.nvim',
   opts = {
     formatters_by_ft = {
-      lua = { 'stylua' },
-      javascript = { "prettier" },
-      typescript = { "prettier" },
-      json = { "prettier" },
-      scss = { "prettier" }
+      lua = { 'prettier' },
+      javascript = { 'prettier' },
+      typescript = { 'prettier' },
+      json = { 'prettier' },
+      scss = { 'prettier' }
     }
   }
 }
