@@ -1,49 +1,71 @@
 return {
-  "hrsh7th/nvim-cmp",
-  event = "InsertEnter",
-  dependencies = {
-    "hrsh7th/cmp-nvim-lsp",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-path"
-  },
-  config = function()
-    local cmp = require("cmp")
+	'hrsh7th/nvim-cmp',
+	version = '*',
+	dependencies = {
+		'hrsh7th/cmp-nvim-lsp',
+		'hrsh7th/cmp-path',
+		'hrsh7th/cmp-buffer',
+		'onsails/lspkind.nvim'
+	},
+	config = function()
+		local cmp = require('cmp')
+		local lspkind = require('lspkind')
 
-    cmp.setup({
-      mapping = {
-        ["<Down>"] = cmp.mapping.select_next_item(),
-        ["<Up>"] = cmp.mapping.select_prev_item(),
-        ["<CR>"] = cmp.mapping.confirm({ select = false }),
-      },
-      sources = {
-        {
-          name = "nvim_lsp",
-          entry_filter = function(entry)
-            local ft = vim.bo.filetype
-            if entry.source.name == "nvim_lsp"
-                and entry.completion_item.detail == "Emmet Abbreviation"
-                and (ft == "javascript" or ft == "javascriptreact"
-                  or ft == "typescript" or ft == "typescriptreact") then
-              return false
-            end
-            return true
-          end,
-        },
-        {
-          name = "buffer",
-          option = {
-            get_bufnrs = function()
-              return vim.tbl_filter(function(buf)
-                return vim.api.nvim_buf_is_loaded(buf) and vim.bo[buf].buflisted
-              end, vim.api.nvim_list_bufs())
-            end,
-          },
-        },
-        { name = "path" }
-      },
-      preselect = cmp.PreselectMode.Item,
-      completion = { completeopt = "menu,menuone,noinsert" },
-      window = { documentation = cmp.config.window.bordered() }
-    })
-  end
+		cmp.setup({
+			-- Basic completion behavior
+			completion = { completeopt = 'menu,menuone,noinsert' },
+			-- Sources in priority order
+			sources = { {
+				name = 'nvim_lsp',
+				entry_filter = function(entry)
+					local ft = vim.bo.filetype
+					if entry.source.name == 'nvim_lsp' and entry.completion_item.detail == 'Emmet Abbreviation' and (ft == 'javascript' or ft == 'javascriptreact' or ft == 'typescript' or ft == 'typescriptreact') then
+						return false
+					end
+					return true
+				end
+			}, { name = 'path' }, {
+				name = 'buffer',
+				keyword_length = 3,
+				option = { get_bufnrs = function()
+					return vim.tbl_filter(function(buf)
+						return vim.api.nvim_buf_is_loaded(
+							buf
+						) and vim.bo[buf].buflisted
+					end, vim.api.nvim_list_bufs())
+				end }
+			} },
+			-- Basic formatting with source indicators
+			formatting = { format = lspkind.cmp_format({
+				mode = 'symbol_text',
+				before = function(entry, vim_item)
+					vim_item.menu = ({
+						nvim_lsp = '[LSP]',
+						path = '[Path]',
+						buffer = '[Buffer]'
+					})[entry.source.name]
+					return vim_item
+				end
+			}) },
+			-- Basic keybindings
+			mapping = {
+				['<C-Space>'] = cmp.mapping.complete(),
+				['<C-e>'] = cmp.mapping.abort(),
+				['<CR>'] = cmp.mapping(
+					function(fallback)
+						if cmp.visible() then
+							cmp.confirm({ select = false })
+						else
+							fallback()
+						end
+					end,
+					{ 'i', 's' }
+				),
+				['<Tab>'] = cmp.mapping.select_next_item(),
+				['<S-Tab>'] = cmp.mapping.select_prev_item(),
+				['<Up>'] = cmp.mapping.select_prev_item(),
+				['<Down>'] = cmp.mapping.select_next_item()
+			}
+		})
+	end
 }
