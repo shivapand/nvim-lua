@@ -22,6 +22,7 @@
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "1b212c2eee76d787bbea6aa5e92a2b534e7b4f8f" },
   "nvim-web-devicons": { "branch": "master", "commit": "b8221e42cf7287c4dcde81f232f58d7b947c210d" },
   "oil.nvim": { "branch": "master", "commit": "71948729cda5fc1b761d6ae60ff774b5525f1d50" },
+  "schemastore.nvim": { "branch": "main", "commit": "667eaa5da8f66f1dd97c905a12dd1eb544a2d259" },
   "scss-syntax.vim": { "branch": "master", "commit": "a6515bad76259f34d885d1f54cdd82c1dd98d91a" },
   "tokyonight.nvim": { "branch": "main", "commit": "d14614cbfc63b6037bfccd48bb982d2ad2003352" },
   "vim-fugitive": { "branch": "master", "commit": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4" },

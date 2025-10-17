@@ -11,7 +11,7 @@ return {
 	}, {
 		'WhoIsSethDaniel/mason-tool-installer.nvim',
 		version = '*'
-	} },
+	}, { 'b0o/schemastore.nvim' } },
 	config = function()
 		local lspconfig = require('lspconfig')
 		local util = require('lspconfig.util')
@@ -60,7 +60,7 @@ return {
 			}
 		})
 
-		require('lspconfig').emmet_language_server.setup({
+		lspconfig.emmet_language_server.setup({
 			filetypes = { 'scss', 'html', 'javascript' }
 		})
 
@@ -81,6 +81,26 @@ return {
 			root_dir = eslint_root_dir,
 			settings = {
 				workingDirectory = { mode = 'auto' }
+			}
+		})
+
+		-- Configure TypeScript language server to handle jsconfig.json
+		lspconfig.ts_ls.setup({
+			filetypes = {
+				'typescript',
+				'typescriptreact',
+				'javascript',
+				'javascriptreact',
+				'json'
+			}
+		})
+
+		lspconfig.jsonls.setup({
+			settings = {
+				json = {
+					schemas = require('schemastore').json.schemas(),
+					validate = { enable = true }
+				}
 			}
 		})
 	end
