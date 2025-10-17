@@ -34,19 +34,6 @@ return {
 			virtual_text = false
 		})
 
-		require('mason-lspconfig').setup({
-			ensure_installed = {
-				'lua_ls',
-				'ts_ls',
-				'eslint',
-				'cssls',
-				'html',
-				'emmet_ls',
-				'jsonls'
-			},
-			automatic_installation = true
-		})
-
 		require('mason-tool-installer').setup({
 			ensure_installed = {
 				'lua-language-server',
@@ -81,17 +68,6 @@ return {
 			root_dir = eslint_root_dir,
 			settings = {
 				workingDirectory = { mode = 'auto' }
-			}
-		})
-
-		-- Configure TypeScript language server to handle jsconfig.json
-		lspconfig.ts_ls.setup({
-			filetypes = {
-				'typescript',
-				'typescriptreact',
-				'javascript',
-				'javascriptreact',
-				'json'
 			}
 		})
 
