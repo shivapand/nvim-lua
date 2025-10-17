@@ -41,7 +41,8 @@ return {
 				'eslint',
 				'cssls',
 				'html',
-				'emmet_ls'
+				'emmet_ls',
+				'jsonls'
 			},
 			automatic_installation = true
 		})
@@ -54,7 +55,8 @@ return {
 				'prettier',
 				'emmet-language-server',
 				'css-lsp',
-				'stylelint-lsp'
+				'stylelint-lsp',
+				'json-lsp'
 			}
 		})
 
