@@ -25,42 +25,32 @@ return {
 			['<down>'] = { 'select_next', 'fallback' }
 		},
 		sources = {
-			default = { 'lazydev', 'path', 'lsp', 'buffer' },
+			default = { 'lazydev', 'lsp', 'path', 'buffer' },
 			providers = {
 				lazydev = {
 					name = 'LazyDev',
 					module = 'lazydev.integrations.blink',
-					score_offset = 1,
+					score_offset = 3,
 					min_keyword_length = 1,
 					fallbacks = {}
 				},
 				lsp = {
-					score_offset = 1,
+					score_offset = 2,
 					min_keyword_length = 1,
 					fallbacks = {}
 				},
 				path = {
-					score_offset = 2,
+					score_offset = 1,
 					min_keyword_length = 0,
 					fallbacks = {}
 				},
 				buffer = {
-					score_offset = 2,
+					score_offset = 0,
 					min_keyword_length = 1
 				}
 			}
 		},
-		fuzzy = {
-			implementation = 'prefer_rust',
-			sorts = { function(a, b)
-				if a.client_name == 'emmet_language_server' and b.client_name ~= 'emmet_language_server' then
-					return false
-				elseif a.client_name ~= 'emmet_language_server' and b.client_name == 'emmet_language_server' then
-					return true
-				end
-				return nil
-			end, 'score', 'sort_text' }
-		}
+		fuzzy = { implementation = 'prefer_rust' }
 	},
 	opts_extend = { 'sources.default' }
 }
