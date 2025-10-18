@@ -47,10 +47,6 @@ return {
 			}
 		})
 
-		lspconfig.emmet_language_server.setup({
-			filetypes = { 'scss', 'html', 'javascript' }
-		})
-
 		local function eslint_root_dir(fname)
 			local root = util.root_pattern('eslint.config.mjs')(fname)
 
@@ -69,6 +65,19 @@ return {
 			settings = {
 				workingDirectory = { mode = 'auto' }
 			}
+		})
+
+		lspconfig.ts_ls.setup({
+			filetypes = {
+				'javascript',
+				'javascriptreact',
+				'typescript',
+				'typescriptreact'
+			}
+		})
+
+		lspconfig.emmet_language_server.setup({
+			filetypes = { 'scss', 'html', 'javascript' }
 		})
 
 		lspconfig.jsonls.setup({
