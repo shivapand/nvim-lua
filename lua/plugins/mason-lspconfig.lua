@@ -77,7 +77,15 @@ return {
 		})
 
 		lspconfig.emmet_language_server.setup({
-			filetypes = { 'scss', 'html', 'javascript' }
+			filetypes = { 'scss', 'html' }, -- Remove javascript
+			settings = {
+				emmet = {
+					-- Disable completions, keep only expansion
+					showExpandedAbbreviation = 'never',
+					showAbbreviationSuggestions = false,
+					showSuggestionsAsSnippets = false
+				}
+			}
 		})
 
 		lspconfig.jsonls.setup({
