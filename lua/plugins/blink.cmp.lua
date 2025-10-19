@@ -31,12 +31,12 @@ return {
 					name = 'LazyDev',
 					module = 'lazydev.integrations.blink',
 					score_offset = 3,
-					min_keyword_length = 1,
+					min_keyword_length = 0,
 					fallbacks = {}
 				},
 				lsp = {
 					score_offset = 2,
-					min_keyword_length = 1,
+					min_keyword_length = 0,
 					fallbacks = {}
 				},
 				path = {
@@ -46,7 +46,7 @@ return {
 				},
 				buffer = {
 					score_offset = 0,
-					min_keyword_length = 1
+					min_keyword_length = 0
 				}
 			}
 		},
