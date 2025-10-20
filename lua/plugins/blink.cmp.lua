@@ -25,23 +25,23 @@ return {
 			['<down>'] = { 'select_next', 'fallback' }
 		},
 		sources = {
-			default = { 'lazydev', 'lsp', 'path', 'buffer' },
+			default = { 'path', 'buffer', 'lazydev', 'lsp' },
 			providers = {
-				lazydev = {
-					name = 'LazyDev',
-					module = 'lazydev.integrations.blink',
+				path = {
 					score_offset = 3,
 					fallbacks = {}
 				},
+				buffer = { score_offset = 0 },
+				lazydev = {
+					name = 'LazyDev',
+					module = 'lazydev.integrations.blink',
+					score_offset = 0,
+					fallbacks = {}
+				},
 				lsp = {
-					score_offset = 2,
+					score_offset = 0,
 					fallbacks = {}
-				},
-				path = {
-					score_offset = 1,
-					fallbacks = {}
-				},
-				buffer = { score_offset = 0 }
+				}
 			}
 		},
 		fuzzy = { implementation = 'prefer_rust' }

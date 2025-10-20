@@ -16,24 +16,6 @@ return {
 		local lspconfig = require('lspconfig')
 		local util = require('lspconfig.util')
 
-		vim.diagnostic.config({
-			severity_sort = true,
-			float = {
-				border = 'rounded',
-				source = 'if_many'
-			},
-			signs = {
-				text = {
-					[vim.diagnostic.severity.ERROR] = '󰅚 ',
-					[vim.diagnostic.severity.WARN] = '󰀪 ',
-					[vim.diagnostic.severity.INFO] = '󰋽 ',
-					[vim.diagnostic.severity.HINT] = '󰌶 '
-				}
-			},
-			update_in_insert = true,
-			virtual_text = false
-		})
-
 		require('mason-tool-installer').setup({
 			ensure_installed = {
 				'lua-language-server',
@@ -88,6 +70,16 @@ return {
 			}
 		})
 
+		lspconfig.stylelint_lsp.setup({
+			filetypes = { 'css', 'scss', 'sass', 'less' },
+			settings = {
+				stylelint = {
+					validateOnSave = true,
+					lintOnSave = true
+				}
+			}
+		})
+
 		lspconfig.jsonls.setup({
 			settings = {
 				json = {
@@ -95,6 +87,24 @@ return {
 					validate = { enable = true }
 				}
 			}
+		})
+
+		vim.diagnostic.config({
+			severity_sort = true,
+			float = {
+				border = 'rounded',
+				source = 'if_many'
+			},
+			signs = {
+				text = {
+					[vim.diagnostic.severity.ERROR] = '󰅚 ',
+					[vim.diagnostic.severity.WARN] = '󰀪 ',
+					[vim.diagnostic.severity.INFO] = '󰋽 ',
+					[vim.diagnostic.severity.HINT] = '󰌶 '
+				}
+			},
+			update_in_insert = true,
+			virtual_text = false
 		})
 	end
 }
