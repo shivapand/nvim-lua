@@ -28,18 +28,15 @@ return {
 			default = { 'path', 'buffer', 'lazydev', 'lsp' },
 			providers = {
 				path = {
-					score_offset = 3,
 					fallbacks = {}
 				},
-				buffer = { score_offset = 0 },
+				buffer = { score_offset = -1 },
 				lazydev = {
 					name = 'LazyDev',
 					module = 'lazydev.integrations.blink',
-					score_offset = 0,
 					fallbacks = {}
 				},
 				lsp = {
-					score_offset = 0,
 					fallbacks = {}
 				}
 			}
