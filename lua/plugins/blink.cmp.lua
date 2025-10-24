@@ -28,20 +28,23 @@ return {
 			default = { 'path', 'buffer', 'lazydev', 'lsp' },
 			providers = {
 				path = {
+					score_offset = 5,
 					fallbacks = {}
 				},
-				buffer = { score_offset = -1 },
+				buffer = { score_offset = 0 },
 				lazydev = {
 					name = 'LazyDev',
 					module = 'lazydev.integrations.blink',
+					score_offset = 0,
 					fallbacks = {}
 				},
 				lsp = {
+					score_offset = 0,
 					fallbacks = {}
 				}
 			}
 		},
-		fuzzy = { implementation = 'prefer_rust' }
+		fuzzy = { implementation = 'prefer_rust_with_warning' }
 	},
 	opts_extend = { 'sources.default' }
 }
