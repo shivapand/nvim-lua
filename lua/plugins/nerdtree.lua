@@ -1,6 +1,6 @@
 return {
 	'preservim/nerdtree',
-	dependencies = { 'ryanoasis/vim-devicons' },
+	dependencies = { 'ryanoasis/vim-devicons', 'szw/vim-maximizer' },
 	config = function()
 		local vimrc = vim.fn.stdpath('config') .. '/vim/nerdtree.vim'
 
