@@ -23,6 +23,7 @@ return {
 				'typescript-language-server',
 				'prettier',
 				'emmet-language-server',
+				'html-lsp',
 				'css-lsp',
 				'stylelint-lsp',
 				'json-lsp'
@@ -55,6 +56,19 @@ return {
 				'javascriptreact',
 				'typescript',
 				'typescriptreact'
+			}
+		})
+
+		lspconfig.html.setup({
+			filetypes = { 'html' },
+			settings = {
+				html = {
+					format = {
+						indentInnerHtml = true,
+						wrapLineLength = 120,
+						wrapAttributes = 'auto'
+					}
+				}
 			}
 		})
 

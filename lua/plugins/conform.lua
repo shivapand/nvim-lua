@@ -6,7 +6,9 @@ return {
 			javascript = { 'prettier' },
 			typescript = { 'prettier' },
 			json = { 'prettier' },
-			scss = { 'prettier' }
+			html = { 'prettier' },
+			scss = { 'prettier' },
+			css = { 'prettier' }
 		}
 	}
 }

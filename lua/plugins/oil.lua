@@ -57,7 +57,8 @@ return {
 					'actions.toggle_trash',
 					mode = 'n'
 				}
-			}
+			},
+			preview = { enable = true }
 		})
 	end
 }
