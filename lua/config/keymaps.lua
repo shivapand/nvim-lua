@@ -20,17 +20,31 @@ vim.keymap.set(
 	}
 )
 
+vim.keymap.set('n', '<Leader>j', ':execute "tabmove" tabpagenr() - 2<CR>', {
+	desc = 'Move tab prev'
+})
+vim.keymap.set('n', '<Leader>k', ':execute "tabmove" tabpagenr() + 1<CR>', {
+	desc = 'Move tab next'
+})
+
 vim.keymap.set(
 	'n',
 	'-',
 	function()
 		if vim.bo.filetype == 'nerdtree' then
+			-- If in NERDTree, go up one directory
 			vim.cmd('call nerdtree#ui_glue#invokeKeyMap("u")')
 		else
-			vim.cmd('NERDTree%')
+			-- If not in NERDTree, toggle it
+			-- Use current directory if no file is open
+			if vim.fn.expand('%') == '' then
+				vim.cmd('NERDTreeToggle .')
+			else
+				vim.cmd('NERDTreeToggle%')
+			end
 		end
 	end,
-	{ desc = 'NERDTree one in current directory or go up directory' }
+	{ desc = 'NERDTree toggle or go up directory' }
 )
 
 vim.keymap.set('n', '_', ':NERDTree<CR>', { desc = 'NERDTree root directory' })
@@ -57,13 +71,6 @@ vim.keymap.set(
 	end,
 	{ desc = 'Open in new tab (Ctrl-t in NERDTree, normal tabnew elsewhere)' }
 )
-
-vim.keymap.set('n', '<Leader>j', ':execute "tabmove" tabpagenr() - 2<CR>', {
-	desc = 'Move tab prev'
-})
-vim.keymap.set('n', '<Leader>k', ':execute "tabmove" tabpagenr() + 1<CR>', {
-	desc = 'Move tab next'
-})
 
 vim.api.nvim_create_autocmd('LspAttach', {
 	group = vim.api.nvim_create_augroup('kickstart-lsp-attach', {
