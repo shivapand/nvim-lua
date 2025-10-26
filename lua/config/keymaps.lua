@@ -20,8 +20,10 @@ vim.keymap.set(
 	}
 )
 
-vim.keymap.set('n', '-', '<CMD>Oil --float<CR>', {
-	desc = 'Open parent directory'
+vim.keymap.set('n', '-', ':NERDTreeToggle%<CR>', { desc = 'Toggle NERDTree' })
+
+vim.keymap.set('n', '_', ':NERDTree<CR>', {
+	desc = 'Toggle NERDTree or go to project root'
 })
 
 vim.keymap.set('n', '<Leader>j', ':execute "tabmove" tabpagenr() - 2<CR>', {
