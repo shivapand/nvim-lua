@@ -20,11 +20,43 @@ vim.keymap.set(
 	}
 )
 
-vim.keymap.set('n', '-', ':NERDTreeToggle%<CR>', {
-	desc = 'NERDTree current directory'
-})
+vim.keymap.set(
+	'n',
+	'-',
+	function()
+		if vim.bo.filetype == 'nerdtree' then
+			vim.cmd('call nerdtree#ui_glue#invokeKeyMap("u")')
+		else
+			vim.cmd('NERDTree%')
+		end
+	end,
+	{ desc = 'NERDTree one in current directory or go up directory' }
+)
 
 vim.keymap.set('n', '_', ':NERDTree<CR>', { desc = 'NERDTree root directory' })
+
+vim.keymap.set('n', '<C-n>', ':NERDTreeToggle<CR>', {
+	desc = 'Toggle NERDTree'
+})
+
+vim.keymap.set(
+	'n',
+	'<C-t>',
+	function()
+		if vim.bo.filetype == 'nerdtree' then
+			-- If in NERDTree, send Shift-t instead
+			vim.cmd('call nerdtree#ui_glue#invokeKeyMap("T")')
+
+			vim.cmd('NERDTreeToggle<CR>')
+
+			vim.cmd('tabnext')
+		else
+			-- If not in NERDTree, use normal Ctrl-t behavior
+			vim.cmd('tabnew')
+		end
+	end,
+	{ desc = 'Open in new tab (Ctrl-t in NERDTree, normal tabnew elsewhere)' }
+)
 
 vim.keymap.set('n', '<Leader>j', ':execute "tabmove" tabpagenr() - 2<CR>', {
 	desc = 'Move tab prev'
