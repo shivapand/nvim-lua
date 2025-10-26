@@ -20,11 +20,11 @@ vim.keymap.set(
 	}
 )
 
-vim.keymap.set('n', '-', ':NERDTreeToggle%<CR>', { desc = 'Toggle NERDTree' })
-
-vim.keymap.set('n', '_', ':NERDTree<CR>', {
-	desc = 'Toggle NERDTree or go to project root'
+vim.keymap.set('n', '-', ':NERDTreeToggle%<CR>', {
+	desc = 'NERDTree current directory'
 })
+
+vim.keymap.set('n', '_', ':NERDTree<CR>', { desc = 'NERDTree root directory' })
 
 vim.keymap.set('n', '<Leader>j', ':execute "tabmove" tabpagenr() - 2<CR>', {
 	desc = 'Move tab prev'
