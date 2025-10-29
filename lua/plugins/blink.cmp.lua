@@ -9,7 +9,7 @@ return {
 				auto_brackets = { enabled = false }
 			},
 			list = {
-				selection = { auto_insert = false } -- Do not automatically insert on selection
+				selection = { auto_insert = false }
 			}
 		},
 		keymap = {
