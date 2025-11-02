@@ -1,46 +1,19 @@
 return {
 	'saghen/blink.cmp',
-	version = '*',
+	version = '1.*',
 	opts = {
+		keymap = { preset = 'enter' },
 		appearance = { nerd_font_variant = 'mono' },
 		completion = {
-			documentation = { auto_show = true },
-			accept = {
-				auto_brackets = { enabled = false }
-			},
-			list = {
-				selection = { auto_insert = false }
-			}
-		},
-		keymap = {
-			preset = 'enter',
-			['<c-space>'] = {
-				'show',
-				'show_documentation',
-				'hide_documentation'
-			},
-			['<tab>'] = { 'select_next', 'fallback' },
-			['<s-tab>'] = { 'select_prev', 'fallback' },
-			['<up>'] = { 'select_prev', 'fallback' },
-			['<down>'] = { 'select_next', 'fallback' }
+			documentation = { auto_show = false }
 		},
 		sources = {
-			default = { 'path', 'buffer', 'lazydev', 'lsp' },
+			default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
 			providers = {
-				path = {
-					score_offset = 5,
-					fallbacks = {}
-				},
-				buffer = { score_offset = 0 },
 				lazydev = {
 					name = 'LazyDev',
 					module = 'lazydev.integrations.blink',
-					score_offset = 0,
-					fallbacks = {}
-				},
-				lsp = {
-					score_offset = 0,
-					fallbacks = {}
+					score_offset = 100
 				}
 			}
 		},
