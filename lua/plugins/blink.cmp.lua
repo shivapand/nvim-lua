@@ -1,8 +1,14 @@
 return {
 	'saghen/blink.cmp',
+	dependencies = {
+		'L3MON4D3/LuaSnip',
+		'rafamadriz/friendly-snippets',
+		'lazydev.nvim'
+	},
 	version = '1.*',
 	opts = {
 		keymap = {
+			snippets = { preset = 'luasnip' },
 			preset = 'enter',
 			['<C-e>'] = { 'hide', 'show' }
 		},
