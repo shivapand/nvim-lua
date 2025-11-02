@@ -43,69 +43,102 @@ return {
 			return root
 		end
 
-		lspconfig.eslint.setup({
-			root_dir = eslint_root_dir,
-			settings = {
-				workingDirectory = { mode = 'auto' }
-			}
+		-- Setup mason-lspconfig (disable automatic enable to use custom configs)
+		require('mason-lspconfig').setup({
+			automatic_installation = true,
+			automatic_enable = false -- We'll set up manually with custom configs
 		})
 
-		lspconfig.ts_ls.setup({
-			filetypes = {
-				'javascript',
-				'javascriptreact',
-				'typescript',
-				'typescriptreact'
-			}
-		})
+		-- Get installed servers and set them up
+		local installed_servers = require('mason-lspconfig').get_installed_servers()
 
-		lspconfig.html.setup({
-			filetypes = { 'html' },
-			settings = {
-				html = {
-					format = {
-						indentInnerHtml = true,
-						wrapLineLength = 120,
-						wrapAttributes = 'auto'
+		-- Default handler for servers without custom config
+		local default_handler = function(server_name)
+			lspconfig[server_name].setup({})
+		end
+
+		-- Custom handlers
+		local custom_handlers = {
+			eslint = function()
+				lspconfig.eslint.setup({
+					root_dir = eslint_root_dir,
+					settings = {
+						workingDirectory = { mode = 'auto' }
 					}
-				}
-			}
-		})
+				})
+			end,
+			ts_ls = function()
+				lspconfig.ts_ls.setup({
+					filetypes = {
+						'javascript',
+						'javascriptreact',
+						'typescript',
+						'typescriptreact'
+					}
+				})
+			end,
+			html = function()
+				lspconfig.html.setup({
+					filetypes = { 'html' },
+					settings = {
+						html = {
+							format = {
+								indentInnerHtml = true,
+								wrapLineLength = 120,
+								wrapAttributes = 'auto'
+							}
+						}
+					}
+				})
+			end,
+			emmet_language_server = function()
+				lspconfig.emmet_language_server.setup({
+					filetypes = { 'scss', 'html' },
+					settings = {
+						emmet = {
+							showExpandedAbbreviation = 'never',
+							showAbbreviationSuggestions = false,
+							showSuggestionsAsSnippets = false
+						}
+					}
+				})
+			end,
+			cssls = function()
+				lspconfig.cssls.setup({
+					filetypes = { 'css', 'scss', 'sass', 'less' }
+				})
+			end,
+			stylelint_lsp = function()
+				lspconfig.stylelint_lsp.setup({
+					filetypes = { 'css', 'scss', 'sass', 'less' },
+					settings = {
+						stylelint = {
+							validateOnSave = true,
+							lintOnSave = true
+						}
+					}
+				})
+			end,
+			jsonls = function()
+				lspconfig.jsonls.setup({
+					settings = {
+						json = {
+							schemas = require('schemastore').json.schemas(),
+							validate = { enable = true }
+						}
+					}
+				})
+			end
+		}
 
-		lspconfig.emmet_language_server.setup({
-			filetypes = { 'scss', 'html' }, -- Remove javascript
-			settings = {
-				emmet = {
-					-- Disable completions, keep only expansion
-					showExpandedAbbreviation = 'never',
-					showAbbreviationSuggestions = false,
-					showSuggestionsAsSnippets = false
-				}
-			}
-		})
-
-		lspconfig.cssls.setup({
-			filetypes = { 'css', 'scss', 'sass', 'less' }
-		})
-
-		lspconfig.stylelint_lsp.setup({
-			filetypes = { 'css', 'scss', 'sass', 'less' },
-			settings = {
-				stylelint = {
-					validateOnSave = true,
-					lintOnSave = true
-				}
-			}
-		})
-
-		lspconfig.jsonls.setup({
-			settings = {
-				json = {
-					schemas = require('schemastore').json.schemas(),
-					validate = { enable = true }
-				}
-			}
-		})
+		-- Setup all installed servers
+		for _, server_name in ipairs(installed_servers) do
+			if custom_handlers[server_name] then
+				custom_handlers[server_name]()
+			else
+				default_handler(server_name)
+			end
+		end
 
 		vim.diagnostic.config({
 			severity_sort = true,
