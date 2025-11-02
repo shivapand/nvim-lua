@@ -2,10 +2,17 @@ return {
 	'saghen/blink.cmp',
 	version = '1.*',
 	opts = {
-		keymap = { preset = 'enter' },
+		keymap = {
+			preset = 'enter',
+			['<C-e>'] = { 'hide', 'show' }
+		},
 		appearance = { nerd_font_variant = 'mono' },
 		completion = {
-			documentation = { auto_show = false }
+			documentation = { auto_show = false },
+			trigger = { show_on_trigger_character = false },
+			accept = {
+				auto_brackets = { enabled = false }
+			}
 		},
 		sources = {
 			default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },

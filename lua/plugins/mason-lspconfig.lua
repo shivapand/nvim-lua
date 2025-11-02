@@ -50,7 +50,8 @@ return {
 		})
 
 		-- Get installed servers and set them up
-		local installed_servers = require('mason-lspconfig').get_installed_servers()
+		local installed_servers =
+			require('mason-lspconfig').get_installed_servers()
 
 		-- Default handler for servers without custom config
 		local default_handler = function(server_name)
