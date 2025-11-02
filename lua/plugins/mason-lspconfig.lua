@@ -84,6 +84,10 @@ return {
 			}
 		})
 
+		lspconfig.cssls.setup({
+			filetypes = { 'css', 'scss', 'sass', 'less' }
+		})
+
 		lspconfig.stylelint_lsp.setup({
 			filetypes = { 'css', 'scss', 'sass', 'less' },
 			settings = {
