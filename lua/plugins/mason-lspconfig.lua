@@ -31,11 +31,11 @@ return {
 		})
 
 		local function eslint_root_dir(fname)
-			local root = util.root_pattern('eslint.config.mjs')(fname)
+			local root = util.root_pattern('eslint.config.js')(fname)
 
 			if root then
 				local parent = vim.fn.fnamemodify(root, ':h')
-				if vim.fn.filereadable(parent .. '/eslint.config.mjs') == 1 then
+				if vim.fn.filereadable(parent .. '/eslint.config.js') == 1 then
 					return parent
 				end
 			end
