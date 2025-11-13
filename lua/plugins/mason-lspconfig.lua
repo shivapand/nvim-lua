@@ -68,8 +68,8 @@ return {
 					}
 				})
 			end,
-			ts_ls = function()
-				lspconfig.ts_ls.setup({
+			tsserver = function()
+				lspconfig.tsserver.setup({
 					filetypes = {
 						'javascript',
 						'javascriptreact',

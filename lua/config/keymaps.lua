@@ -140,7 +140,7 @@ vim.keymap.set(
 	function()
 		vim.diagnostic.goto_prev({ float = false })
 	end,
-	{ desc = 'Next Diagnostic' }
+	{ desc = 'Previous Diagnostic' }
 )
 vim.keymap.set(
 	'n',
@@ -148,7 +148,7 @@ vim.keymap.set(
 	function()
 		vim.diagnostic.goto_next({ float = false })
 	end,
-	{ desc = 'Previous Diagnostic' }
+	{ desc = 'Next Diagnostic' }
 )
 
 vim.keymap.set('n', '<S-k>', '<Cmd>Lspsaga hover_doc<CR>', {
