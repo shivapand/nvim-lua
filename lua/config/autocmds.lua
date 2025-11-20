@@ -5,6 +5,3 @@ vim.api.nvim_create_autocmd('CursorHold', {
 	command = 'Lspsaga show_cursor_diagnostics ++unfocus',
 	desc = 'Show LSP diagnostics on cursor hold'
 })
-
-
-
