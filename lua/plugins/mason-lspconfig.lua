@@ -31,16 +31,11 @@ return {
 		})
 
 		local function eslint_root_dir(fname)
-			local root = util.root_pattern('eslint.config.mjs')(fname)
-
-			if root then
-				local parent = vim.fn.fnamemodify(root, ':h')
-				if vim.fn.filereadable(parent .. '/eslint.config.mjs') == 1 then
-					return parent
-				end
+			local project_root = util.root_pattern('package.json', '.git')(fname)
+			if project_root then
+				return vim.fn.fnamemodify(project_root, ':h')
 			end
-
-			return root
+			return nil
 		end
 
 		-- Setup mason-lspconfig (disable automatic enable to use custom configs)
