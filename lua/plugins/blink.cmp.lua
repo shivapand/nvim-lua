@@ -21,8 +21,17 @@ return {
 			}
 		},
 		sources = {
-			default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+			default = { 'buffer', 'lazydev', 'lsp', 'path', 'snippets' },
 			providers = {
+				buffer = {
+					opts = { get_bufnrs = function()
+						return vim.tbl_filter(function(bufnr)
+							return vim.bo[bufnr].buftype == ''
+						end, vim.api.nvim_list_bufs())
+					end },
+					fallbacks = {},
+					score_offset = 1
+				},
 				lazydev = {
 					name = 'LazyDev',
 					module = 'lazydev.integrations.blink',
@@ -30,13 +39,6 @@ return {
 				},
 				lsp = {
 					fallbacks = {}
-				},
-				buffer = {
-					opts = { get_bufnrs = function()
-						return vim.tbl_filter(function(bufnr)
-							return vim.bo[bufnr].buftype == ''
-						end, vim.api.nvim_list_bufs())
-					end }
 				}
 			}
 		},
