@@ -26,10 +26,7 @@ return {
 				lazydev = {
 					name = 'LazyDev',
 					module = 'lazydev.integrations.blink',
-					fallbacks = {}
-				},
-				lsp = {
-					fallbacks = {}
+					score_offset = 100
 				}
 			}
 		},
