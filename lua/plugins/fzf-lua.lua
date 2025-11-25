@@ -79,5 +79,11 @@ return {
 			require('fzf-lua').lgrep_curbuf()
 		end,
 		desc = '[/] Live grep the current buffer'
+	}, {
+		'<leader>ft',
+		function()
+			require('fzf-lua').tabs()
+		end,
+		desc = '[F]ind [T]abs'
 	} }
 }
