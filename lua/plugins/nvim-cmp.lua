@@ -25,15 +25,15 @@ return {
 					select = true,
 					behavior = cmp.ConfirmBehavior.Replace
 				}),
-				['<C-e>'] = cmp.mapping(
-					function(fallback)
+				['<C-Space>'] = cmp.mapping(
+					function()
 						if cmp.visible() then
 							cmp.close()
 						else
 							cmp.complete()
 						end
 					end,
-					{ 'i', 's' }
+					{ 'i', 'c' }
 				),
 				['<Down>'] = cmp.mapping.select_next_item(),
 				['<Up>'] = cmp.mapping.select_prev_item()
@@ -49,10 +49,17 @@ return {
 				name = 'path',
 				priority = 900
 			} }),
-			experimental = { ghost_text = true },
 			sorting = {
 				priority_weight = 2,
-				comparators = { cmp.config.compare.exact }
+				comparators = {
+					cmp.config.compare.sort_text,
+					cmp.config.compare.offset,
+					cmp.config.compare.exact,
+					cmp.config.compare.score,
+					cmp.config.compare.kind,
+					cmp.config.compare.length,
+					cmp.config.compare.order,
+				}
 			}
 		})
 	end
