@@ -42,15 +42,16 @@ return {
 				name = 'nvim_lsp',
 				priority = 1000
 			}, {
-				-- nvim_lsp is now highest
 				name = 'buffer',
-				priority = 950
+				priority = 950,
+				option = { get_bufnrs = function()
+					return vim.api.nvim_list_bufs()
+				end }
 			}, {
 				name = 'path',
 				priority = 900
 			} }),
 			sorting = {
-				priority_weight = 2,
 				comparators = {
 					cmp.config.compare.sort_text,
 					cmp.config.compare.offset,
@@ -58,7 +59,7 @@ return {
 					cmp.config.compare.score,
 					cmp.config.compare.kind,
 					cmp.config.compare.length,
-					cmp.config.compare.order,
+					cmp.config.compare.order
 				}
 			}
 		})
