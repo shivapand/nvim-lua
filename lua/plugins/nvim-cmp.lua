@@ -4,45 +4,46 @@ return {
 		'hrsh7th/cmp-nvim-lsp',
 		'hrsh7th/cmp-buffer',
 		'hrsh7th/cmp-path',
-		'onsails/lspkind-nvim' -- icons
+		'onsails/lspkind-nvim'
 	},
 	config = function()
 		local cmp = require('cmp')
 		local lspkind = require('lspkind')
+		local CompletionItemKind = vim.lsp.protocol.CompletionItemKind
 
+		-- Kind priorities (use numeric enum keys)
 		local kind_priorities = {
-			Keyword = 1,
-			Variable = 2,
-			Function = 3,
-			Method = 4,
-			Field = 5,
-			Constant = 6,
-			Class = 7,
-			Interface = 8,
-			Module = 9,
-			Property = 10,
-			Unit = 11,
-			Value = 12,
-			Enum = 13,
-			Snippet = 100,
-			Text = 101
+			[CompletionItemKind.Keyword] = 1,
+			[CompletionItemKind.Variable] = 2,
+			[CompletionItemKind.Function] = 3,
+			[CompletionItemKind.Method] = 4,
+			[CompletionItemKind.Field] = 5,
+			[CompletionItemKind.Constant] = 6,
+			[CompletionItemKind.Class] = 7,
+			[CompletionItemKind.Interface] = 8,
+			[CompletionItemKind.Module] = 9,
+			[CompletionItemKind.Property] = 10,
+			[CompletionItemKind.Unit] = 11,
+			[CompletionItemKind.Value] = 12,
+			[CompletionItemKind.Enum] = 13,
+			[CompletionItemKind.Snippet] = 100,
+			[CompletionItemKind.Text] = 101
 		}
 
-		-- Define the custom comparator function to use the priorities table
+		-- Comparator: prefer kinds per table first
 		local custom_kind_comparator = function(entry1, entry2)
-			local kind1 = entry1:get_kind()
-			local kind2 = entry2:get_kind()
-			-- Use the table value, default to a high number if the kind isn't listed
-			local priority1 = kind_priorities[kind1] or 1000
-			local priority2 = kind_priorities[kind2] or 1000
-			if priority1 ~= priority2 then
-				-- Lua's sort expects true for 'entry1 comes before entry2'
-				return priority1 < priority2
+			local p1 = kind_priorities[entry1:get_kind()] or 1000
+			local p2 = kind_priorities[entry2:get_kind()] or 1000
+			if p1 ~= p2 then
+				return p1 < p2
 			end
-			-- Return nil (or don't return anything) to let the next comparator handle it
 		end
 
 		cmp.setup({
+			-- disable automatic preselection; first visible item will be highlighted
+			preselect = cmp.PreselectMode.None,
+			-- ensure confirmation replaces by default (keeps behavior predictable)
+			confirmation = { default_behavior = cmp.ConfirmBehavior.Replace },
 			completion = { completeopt = 'menu,menuone,select' },
 			window = {
 				completion = cmp.config.window.bordered(),
@@ -55,20 +56,14 @@ return {
 			mapping = {
 				['<CR>'] = cmp.mapping(
 					function(fallback)
-						if cmp.visible() and cmp.get_selected_entry() then
-							cmp.confirm({ select = true })
-						elseif cmp.visible() then
-							-- If menu is visible but no entry selected, explicitly insert a newline
-							vim.api.nvim_feedkeys(
-								vim.api.nvim_replace_termcodes(
-									'<CR>',
-									true,
-									true,
-									true
-								),
-								'n',
-								true
-							)
+						if cmp.visible() then
+							local entry = cmp.get_selected_entry()
+							if entry then
+								cmp.confirm({ select = true })
+							else
+								-- no entry selected: insert newline
+								fallback()
+							end
 						else
 							fallback()
 						end
@@ -94,21 +89,19 @@ return {
 			}, {
 				name = 'buffer',
 				priority = 950,
-				option = { get_bufnrs = function()
-					return vim.api.nvim_list_bufs()
-				end }
+				option = { get_bufnrs = vim.api.nvim_list_bufs }
 			}, {
 				name = 'path',
 				priority = 900
 			} }),
 			sorting = {
 				comparators = {
-					custom_kind_comparator,
-					cmp.config.compare.score,
-					cmp.config.compare.offset,
-					cmp.config.compare.exact,
-					cmp.config.compare.sort_text,
-					cmp.config.compare.length,
+					custom_kind_comparator, -- keep your kind priorities first
+					cmp.config.compare.exact, -- exact prefix wins
+					cmp.config.compare.locality, -- proximity/locality (not CamelCase boundary boost)
+					cmp.config.compare.sort_text, -- tie-break lexicographically
+					cmp.config.compare.length, -- shorter names first
+					cmp.config.compare.score, -- fuzzy scoring as fallback
 					cmp.config.compare.order
 				}
 			}
