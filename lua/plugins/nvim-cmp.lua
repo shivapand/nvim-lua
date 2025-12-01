@@ -10,6 +10,24 @@ return {
 		local cmp = require('cmp')
 		local lspkind = require('lspkind')
 
+		local kind_priorities = {
+			Keyword = 1,
+			Variable = 2,
+			Function = 3,
+			Method = 4,
+			Field = 5,
+			Constant = 6,
+			Class = 7,
+			Interface = 8,
+			Module = 9,
+			Property = 10,
+			Unit = 11,
+			Value = 12,
+			Enum = 13,
+			Snippet = 100,
+			Text = 101,
+		}
+
 		cmp.setup({
 			completion = { completeopt = 'menu,menuone,select' },
 			window = {
@@ -59,11 +77,19 @@ return {
 			} }),
 			sorting = {
 				comparators = {
-					cmp.config.compare.sort_text,
+					function(entry1, entry2)
+						local kind1 = entry1:get_kind()
+						local kind2 = entry2:get_kind()
+						local priority1 = kind_priorities[kind1] or 1000
+						local priority2 = kind_priorities[kind2] or 1000
+						if priority1 ~= priority2 then
+							return priority1 < priority2
+						end
+					end,
+					cmp.config.compare.score,
 					cmp.config.compare.offset,
 					cmp.config.compare.exact,
-					cmp.config.compare.score,
-					cmp.config.compare.kind,
+					cmp.config.compare.sort_text,
 					cmp.config.compare.length,
 					cmp.config.compare.order
 				}
