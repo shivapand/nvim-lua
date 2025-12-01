@@ -25,8 +25,22 @@ return {
 			Value = 12,
 			Enum = 13,
 			Snippet = 100,
-			Text = 101,
+			Text = 101
 		}
+
+		-- Define the custom comparator function to use the priorities table
+		local custom_kind_comparator = function(entry1, entry2)
+			local kind1 = entry1:get_kind()
+			local kind2 = entry2:get_kind()
+			-- Use the table value, default to a high number if the kind isn't listed
+			local priority1 = kind_priorities[kind1] or 1000
+			local priority2 = kind_priorities[kind2] or 1000
+			if priority1 ~= priority2 then
+				-- Lua's sort expects true for 'entry1 comes before entry2'
+				return priority1 < priority2
+			end
+			-- Return nil (or don't return anything) to let the next comparator handle it
+		end
 
 		cmp.setup({
 			completion = { completeopt = 'menu,menuone,select' },
@@ -77,15 +91,7 @@ return {
 			} }),
 			sorting = {
 				comparators = {
-					function(entry1, entry2)
-						local kind1 = entry1:get_kind()
-						local kind2 = entry2:get_kind()
-						local priority1 = kind_priorities[kind1] or 1000
-						local priority2 = kind_priorities[kind2] or 1000
-						if priority1 ~= priority2 then
-							return priority1 < priority2
-						end
-					end,
+					custom_kind_comparator,
 					cmp.config.compare.score,
 					cmp.config.compare.offset,
 					cmp.config.compare.exact,
@@ -97,3 +103,4 @@ return {
 		})
 	end
 }
+
