@@ -21,10 +21,16 @@ return {
 				maxwidth = 50
 			}) },
 			mapping = {
-				['<CR>'] = cmp.mapping.confirm({
-					select = true,
-					behavior = cmp.ConfirmBehavior.Replace
-				}),
+				['<CR>'] = cmp.mapping(
+					function(fallback)
+						if cmp.visible() and cmp.get_selected_entry() then
+							cmp.confirm({ select = true })
+						else
+							fallback()
+						end
+					end,
+					{ 'i', 's' }
+				),
 				['<C-Space>'] = cmp.mapping(
 					function()
 						if cmp.visible() then
