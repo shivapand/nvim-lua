@@ -57,6 +57,18 @@ return {
 					function(fallback)
 						if cmp.visible() and cmp.get_selected_entry() then
 							cmp.confirm({ select = true })
+						elseif cmp.visible() then
+							-- If menu is visible but no entry selected, explicitly insert a newline
+							vim.api.nvim_feedkeys(
+								vim.api.nvim_replace_termcodes(
+									'<CR>',
+									true,
+									true,
+									true
+								),
+								'n',
+								true
+							)
 						else
 							fallback()
 						end
@@ -103,4 +115,3 @@ return {
 		})
 	end
 }
-
