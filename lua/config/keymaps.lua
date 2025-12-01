@@ -58,11 +58,13 @@ vim.keymap.set(
 	'<C-t>',
 	function()
 		if vim.bo.filetype == 'nerdtree' then
-			-- If in NERDTree, send Shift-t instead
-			vim.cmd('call nerdtree#ui_glue#invokeKeyMap("T")')
-
-			vim.cmd('NERDTreeToggle<CR>')
-
+			-- 't' opens the file in a new tab and switches to it.
+			vim.cmd('call nerdtree#ui_glue#invokeKeyMap("t")')
+			-- Go back to the previous tab, which should be the NERDTree tab.
+			vim.cmd('tabprevious')
+			-- Close the NERDTree window.
+			vim.cmd('NERDTreeClose')
+			-- Go to the next tab, which should be the newly opened file.
 			vim.cmd('tabnext')
 		else
 			-- If not in NERDTree, use normal Ctrl-t behavior
