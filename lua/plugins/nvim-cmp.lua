@@ -26,24 +26,25 @@ return {
 				priority = 1000
 			}, {
 				name = 'buffer',
-				priority = 950,
+				priority = 750,
 				option = { get_bufnrs = vim.api.nvim_list_bufs }
 			}, {
 				name = 'path',
-				priority = 900
+				priority = 500
 			} }),
 			sorting = {
+				priority_weight = 2,
 				comparators = {
-					cmp.config.compare.exact,
-					cmp.config.compare.score,
-					cmp.config.compare.recently_used,
-					cmp.config.compare.kind,
-					cmp.config.compare.sort_text,
-					cmp.config.compare.length,
+					cmp.config.compare.score, -- Most important: LSP/score relevance
+					cmp.config.compare.exact, -- Exact match boost
+					cmp.config.compare.recently_used, -- Move used items up
+					cmp.config.compare.locality, -- Closer buffer items rank higher
+					cmp.config.compare.kind, -- Sort by item type (function > variable etc.)
+					cmp.config.compare.sort_text, -- Sort by language server provided sortText
+					cmp.config.compare.length, -- Shorter words slightly earlier
 					cmp.config.compare.order
 				}
 			}
 		})
 	end
 }
-
