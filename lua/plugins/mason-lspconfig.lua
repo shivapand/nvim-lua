@@ -30,14 +30,6 @@ return {
 			}
 		})
 
-		local function eslint_root_dir(fname)
-			local project_root = util.root_pattern('package.json', '.git')(fname)
-			if project_root then
-				return vim.fn.fnamemodify(project_root, ':h')
-			end
-			return nil
-		end
-
 		-- Setup mason-lspconfig (disable automatic enable to use custom configs)
 		require('mason-lspconfig').setup({
 			automatic_installation = true,
@@ -54,78 +46,16 @@ return {
 		end
 
 		-- Custom handlers
-		local custom_handlers = {
-			eslint = function()
-				lspconfig.eslint.setup({
-					root_dir = eslint_root_dir,
-					settings = {
-						workingDirectory = { mode = 'auto' }
+		local custom_handlers = { jsonls = function()
+			lspconfig.jsonls.setup({
+				settings = {
+					json = {
+						schemas = require('schemastore').json.schemas(),
+						validate = { enable = true }
 					}
-				})
-			end,
-			tsserver = function()
-				lspconfig.tsserver.setup({
-					filetypes = {
-						'javascript',
-						'javascriptreact',
-						'typescript',
-						'typescriptreact'
-					}
-				})
-			end,
-			html = function()
-				lspconfig.html.setup({
-					filetypes = { 'html' },
-					settings = {
-						html = {
-							format = {
-								indentInnerHtml = true,
-								wrapLineLength = 120,
-								wrapAttributes = 'auto'
-							}
-						}
-					}
-				})
-			end,
-			emmet_language_server = function()
-				lspconfig.emmet_language_server.setup({
-					filetypes = { 'scss', 'html' },
-					settings = {
-						emmet = {
-							showExpandedAbbreviation = 'never',
-							showAbbreviationSuggestions = false,
-							showSuggestionsAsSnippets = false
-						}
-					}
-				})
-			end,
-			cssls = function()
-				lspconfig.cssls.setup({
-					filetypes = { 'css', 'scss', 'sass', 'less' }
-				})
-			end,
-			stylelint_lsp = function()
-				lspconfig.stylelint_lsp.setup({
-					filetypes = { 'css', 'scss', 'sass', 'less' },
-					settings = {
-						stylelint = {
-							validateOnSave = true,
-							lintOnSave = true
-						}
-					}
-				})
-			end,
-			jsonls = function()
-				lspconfig.jsonls.setup({
-					settings = {
-						json = {
-							schemas = require('schemastore').json.schemas(),
-							validate = { enable = true }
-						}
-					}
-				})
-			end
-		}
+				}
+			})
+		end }
 
 		-- Setup all installed servers
 		for _, server_name in ipairs(installed_servers) do
