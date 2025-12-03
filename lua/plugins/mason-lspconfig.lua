@@ -14,7 +14,6 @@ return {
 	}, { 'b0o/schemastore.nvim' } },
 	config = function()
 		local lspconfig = require('lspconfig')
-		local util = require('lspconfig.util')
 
 		require('mason-tool-installer').setup({
 			ensure_installed = {
@@ -30,22 +29,15 @@ return {
 			}
 		})
 
-		-- Setup mason-lspconfig (disable automatic enable to use custom configs)
 		require('mason-lspconfig').setup({
 			automatic_installation = true,
-			automatic_enable = false -- We'll set up manually with custom configs
+			automatic_enable = false
 		})
 
-		-- Get installed servers and set them up
-		local installed_servers =
-			require('mason-lspconfig').get_installed_servers()
-
-		-- Default handler for servers without custom config
 		local default_handler = function(server_name)
 			lspconfig[server_name].setup({})
 		end
 
-		-- Custom handlers
 		local custom_handlers = { jsonls = function()
 			lspconfig.jsonls.setup({
 				settings = {
@@ -57,7 +49,9 @@ return {
 			})
 		end }
 
-		-- Setup all installed servers
+		local installed_servers =
+			require('mason-lspconfig').get_installed_servers()
+
 		for _, server_name in ipairs(installed_servers) do
 			if custom_handlers[server_name] then
 				custom_handlers[server_name]()
