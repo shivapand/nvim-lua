@@ -1,6 +1,6 @@
 return {
 	'saghen/blink.cmp',
-	dependencies = { 'rafamadriz/friendly-snippets' },
+	dependencies = {},
 	version = '1.*',
 	opts = {
 		keymap = { preset = 'enter' },
@@ -13,9 +13,9 @@ return {
 			trigger = { show_on_trigger_character = false }
 		},
 		sources = {
-			default = { 'lsp', 'path', 'snippets', 'buffer' }
+			default = { 'lsp', 'path', 'buffer' }
 		},
-		fuzzy = { implementation = 'prefer_rust_with_warning' }
+		fuzzy = { implementation = 'lua' }
 	},
 	opts_extend = { 'sources.default' }
 }
