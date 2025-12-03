@@ -1,6 +1,6 @@
 return {
 	'saghen/blink.cmp',
-	dependencies = {},
+	dependencies = { 'rafamadriz/friendly-snippets' },
 	version = '1.*',
 	opts = {
 		keymap = { preset = 'enter' },
@@ -13,24 +13,9 @@ return {
 			trigger = { show_on_trigger_character = false }
 		},
 		sources = {
-			default = { 'lsp', 'path', 'buffer' },
-			providers = {
-				lsp = {
-					fallbacks = {}
-				},
-				buffer = {
-					opts = { get_bufnrs = function()
-						return vim.tbl_filter(function(bufnr)
-							return vim.bo[bufnr].buftype == ''
-						end, vim.api.nvim_list_bufs())
-					end }
-				}
-			}
+			default = { 'lsp', 'path', 'snippets', 'buffer' }
 		},
-		fuzzy = {
-			implementation = 'prefer_rust_with_warning',
-			sorts = { 'exact', 'score', 'sort_text' }
-		}
+		fuzzy = { implementation = 'prefer_rust_with_warning' }
 	},
 	opts_extend = { 'sources.default' }
 }
