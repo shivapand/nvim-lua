@@ -13,9 +13,17 @@ return {
 			trigger = { show_on_trigger_character = false }
 		},
 		sources = {
-			default = { 'lsp', 'path', 'buffer' }
+			default = { 'lsp', 'path', 'buffer' },
+			providers = {
+				lsp = {
+					fallbacks = {}
+				}
+			}
 		},
-		fuzzy = { implementation = 'lua' }
+		fuzzy = {
+			implementation = 'lua',
+			sorts = { 'exact', 'score', 'sort_text' }
+		}
 	},
 	opts_extend = { 'sources.default' }
 }
