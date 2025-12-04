@@ -158,6 +158,42 @@ vim.keymap.set('n', '<S-k>', '<Cmd>Lspsaga hover_doc<CR>', {
 })
 
 vim.keymap.set(
+	'n',
+	'<Leader>q',
+	function()
+		local diagnostics = vim.diagnostic.get(0)
+		if diagnostics and #diagnostics > 0 then
+			local qf_list = {}
+			local severity_map = {
+				[vim.diagnostic.severity.ERROR] = 'E',
+				[vim.diagnostic.severity.WARN] = 'W',
+				[vim.diagnostic.severity.INFO] = 'I',
+				[vim.diagnostic.severity.HINT] = 'H'
+			}
+			for _, d in ipairs(diagnostics) do
+				table.insert(qf_list, {
+					bufnr = d.bufnr,
+					lnum = d.lnum + 1,
+					col = d.col + 1,
+					text = string.format(
+						'%s (%s %s)',
+						d.message,
+						d.source,
+						d.code or ''
+					),
+					type = severity_map[d.severity]
+				})
+			end
+			vim.fn.setqflist(qf_list)
+			vim.cmd('copen')
+		else
+			vim.notify('No diagnostics in current buffer', vim.log.levels.INFO)
+		end
+	end,
+	{ desc = 'Open diagnostics in quickfix list' }
+)
+
+vim.keymap.set(
 	{ 'n', 'v' },
 	'<C-a>',
 	function()
