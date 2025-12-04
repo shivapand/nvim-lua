@@ -16,14 +16,12 @@ return {
 			default = { 'lsp', 'path', 'buffer' },
 			providers = {
 				lsp = {
-					fallbacks = {}
+					fallbacks = {},
+					score_offset = 2
 				}
 			}
 		},
-		fuzzy = {
-			implementation = 'lua',
-			sorts = { 'exact', 'score', 'sort_text' }
-		}
+		fuzzy = { implementation = 'lua' }
 	},
 	opts_extend = { 'sources.default' }
 }
