@@ -1,6 +1,6 @@
 return {
 	'saghen/blink.cmp',
-	dependencies = {},
+	dependencies = { 'Exafunction/codeium.nvim' },
 	version = '1.*',
 	opts = {
 		keymap = { preset = 'enter' },
@@ -13,11 +13,17 @@ return {
 			trigger = { show_on_trigger_character = false }
 		},
 		sources = {
-			default = { 'lsp', 'path', 'buffer' },
+			default = { 'lsp', 'path', 'buffer', 'codeium' },
 			providers = {
 				lsp = {
 					fallbacks = {},
 					score_offset = 2
+				},
+				codeium = {
+					name = 'Codeium',
+					module = 'codeium.blink',
+					async = true,
+					score_offset = -3
 				}
 			}
 		},
