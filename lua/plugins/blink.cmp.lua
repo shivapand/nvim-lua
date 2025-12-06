@@ -23,7 +23,7 @@ return {
 					name = 'Codeium',
 					module = 'codeium.blink',
 					async = true,
-					score_offset = -3
+					score_offset = -4
 				}
 			}
 		},
