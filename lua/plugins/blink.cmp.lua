@@ -16,22 +16,19 @@ return {
 			default = { 'lsp', 'path', 'buffer', 'codeium' },
 			providers = {
 				lsp = {
-					score_offset = 100,
+					score_offset = 2,
 					fallbacks = {}
 				},
 				codeium = {
 					name = 'Codeium',
 					module = 'codeium.blink',
 					async = true,
-					score_offset = -100,
+					score_offset = -1000,
 					fallbacks = {}
 				}
 			}
 		},
-		fuzzy = {
-			implementation = 'lua',
-			sorts = { 'exact', 'score', 'sort_text' }
-		}
+		fuzzy = { implementation = 'lua' }
 	},
 	opts_extend = { 'sources.default' }
 }
