@@ -16,15 +16,13 @@ return {
 			default = { 'lsp', 'path', 'buffer', 'codeium' },
 			providers = {
 				lsp = {
-					score_offset = 2,
 					fallbacks = {}
 				},
 				codeium = {
 					name = 'Codeium',
 					module = 'codeium.blink',
 					async = true,
-					score_offset = -1000,
-					fallbacks = {}
+					score_offset = -100
 				}
 			}
 		},
