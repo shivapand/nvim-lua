@@ -30,19 +30,6 @@ return {
 			}
 		})
 
-		local function eslint_root_dir(fname)
-			local root = util.root_pattern('eslint.config.mjs')(fname)
-
-			if root then
-				local parent = vim.fn.fnamemodify(root, ':h')
-				if vim.fn.filereadable(parent .. '/eslint.config.mjs') == 1 then
-					return parent
-				end
-			end
-
-			return root
-		end
-
 		require('mason-lspconfig').setup({
 			automatic_installation = true,
 			automatic_enable = false
@@ -52,26 +39,16 @@ return {
 			lspconfig[server_name].setup({})
 		end
 
-		local custom_handlers = {
-			eslint = function()
-				lspconfig.eslint.setup({
-					root_dir = eslint_root_dir,
-					settings = {
-						workingDirectory = { mode = 'auto' }
+		local custom_handlers = { jsonls = function()
+			lspconfig.jsonls.setup({
+				settings = {
+					json = {
+						schemas = require('schemastore').json.schemas(),
+						validate = { enable = true }
 					}
-				})
-			end,
-			jsonls = function()
-				lspconfig.jsonls.setup({
-					settings = {
-						json = {
-							schemas = require('schemastore').json.schemas(),
-							validate = { enable = true }
-						}
-					}
-				})
-			end
-		}
+				}
+			})
+		end }
 
 		local installed_servers =
 			require('mason-lspconfig').get_installed_servers()

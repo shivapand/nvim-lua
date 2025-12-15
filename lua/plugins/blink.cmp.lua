@@ -15,9 +15,6 @@ return {
 		sources = {
 			default = { 'lsp', 'path', 'buffer', 'codeium' },
 			providers = {
-				lsp = {
-					fallbacks = {}
-				},
 				codeium = {
 					name = 'Codeium',
 					module = 'codeium.blink',
