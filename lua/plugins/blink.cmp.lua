@@ -6,7 +6,11 @@ return {
 		keymap = { preset = 'enter' },
 		appearance = { nerd_font_variant = 'mono' },
 		completion = {
-			documentation = { auto_show = true },
+			menu = { border = 'rounded' },
+			documentation = {
+				auto_show = true,
+				border = 'rounded'
+			},
 			accept = {
 				auto_brackets = { enabled = false }
 			},
