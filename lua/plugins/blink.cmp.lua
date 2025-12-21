@@ -9,7 +9,7 @@ return {
 			menu = { border = 'rounded' },
 			documentation = {
 				auto_show = true,
-				border = 'rounded'
+				window = { border = 'rounded' }
 			},
 			accept = {
 				auto_brackets = { enabled = false }
